@@ -4,22 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EDE1">
-<title>Jael · Estudo interativo</title>
+<title>Estudo interativo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&family=Nunito:wght@400;600&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&family=Nunito:wght@400;600&family=Caveat:wght@500&family=Playfair+Display:ital,wght@0,500;1,500&family=Lora:ital,wght@0,500;1,500&family=Poppins:wght@400;500;600&family=Quicksand:wght@400;500;600&family=DM+Serif+Display:ital@0;1&family=Montserrat:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <style>
-:root{--bg:#F4EDE1;--sf2:#FBF6EE;--ac:#B5562F;--ac2:#E8C39E;--tag:#F1DCCB;--tagt:#8A3E1F;--tx:#3B2A20;--mu:#8B7363;--ok:#5E7B3A;--okbg:#E3EAD3;--okbd:#8FA66A;--no:#A33A2A;--slot:#EFE3D2;--slotbd:#D4A880;--fr:'Fraunces',Georgia,serif;--nu:'Nunito',system-ui,sans-serif}
+:root{--bg:#F4EDE1;--card:#FFFFFF;--onac:#FFFFFF;--okt:#3E5420;--slott:#9A6B48;--pat:rgba(232,195,158,.45);--r1:24px;--r2:999px;--sf2:#FBF6EE;--ac:#B5562F;--ac2:#E8C39E;--tag:#F1DCCB;--tagt:#8A3E1F;--tx:#3B2A20;--mu:#8B7363;--ok:#5E7B3A;--okbg:#E3EAD3;--okbd:#8FA66A;--no:#A33A2A;--slot:#EFE3D2;--slotbd:#D4A880;--fr:'Fraunces',Georgia,serif;--nu:'Nunito',system-ui,sans-serif}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--nu);-webkit-tap-highlight-color:transparent}
 button{font-family:inherit;cursor:pointer}
 a{color:var(--ac)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#fff;border:1px solid var(--ac2);color:var(--tx);border-radius:10px;padding:8px 12px;font-size:14px;text-decoration:none;line-height:1.2}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--card);border:1px solid var(--ac2);color:var(--tx);border-radius:10px;padding:8px 12px;font-size:14px;text-decoration:none;line-height:1.2}
 .btn:hover{border-color:var(--ac)}
-.btn.pri{background:var(--ac);border-color:var(--ac);color:#fff}
+.btn.pri{background:var(--ac);border-color:var(--ac);color:var(--onac)}
 .btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
 .btn.sm{padding:5px 9px;font-size:12px;border-radius:8px}
 .btn.on{background:var(--tag);border-color:var(--ac);color:var(--tagt)}
@@ -40,10 +40,10 @@ a{color:var(--ac)}
 .stage .split{display:grid;grid-template-columns:36% minmax(0,1fr);gap:56px;flex:1;min-height:0}
 .stage .col{display:flex;flex-direction:column;gap:24px;min-width:0;min-height:0;flex:1}
 .stage .col.mid{justify-content:center}
-.stage .img{border-radius:28px;background:var(--slot) center/cover no-repeat;min-height:0}
+.stage .img{border-radius:var(--r1);background:var(--slot) center/cover no-repeat;min-height:0}
 .stage .row2{display:flex;justify-content:space-between;align-items:center;gap:20px}
-.stage .tag{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;font-size:22px;padding:7px 20px;border-radius:999px;background:var(--tag);color:var(--tagt)}
-.stage .tag.ok{background:var(--okbg);color:#3E5420}
+.stage .tag{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;font-size:22px;padding:7px 20px;border-radius:var(--r2);background:var(--tag);color:var(--tagt)}
+.stage .tag.ok{background:var(--okbg);color:var(--okt)}
 .stage .tag i{font-size:26px}
 .stage .kind{font-size:22px;color:var(--mu);display:flex;align-items:center;gap:8px}
 .stage .q{font:500 46px/1.2 var(--fr)}
@@ -54,27 +54,27 @@ a{color:var(--ac)}
 .stage .center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center}
 .stage .fit{flex:0 1 auto;min-height:0;overflow:hidden}
 .stage .opts{display:flex;flex-direction:column;gap:16px}
-.stage .opt{background:#fff;border:2px solid var(--ac2);border-radius:22px;padding:16px 24px;font-size:34px;display:flex;align-items:center;gap:20px;transition:.25s}
-.stage .opt.sel{background:var(--ac);border-color:var(--ac);color:#fff}
+.stage .opt{background:var(--card);border:2px solid var(--ac2);border-radius:var(--r1);padding:16px 24px;font-size:34px;display:flex;align-items:center;gap:20px;transition:.25s}
+.stage .opt.sel{background:var(--ac);border-color:var(--ac);color:var(--onac)}
 .stage .opt.dim,.stage .vfb.dim{opacity:.45}
 .stage .lt{width:56px;height:56px;border-radius:50%;background:var(--tag);color:var(--tagt);font-size:26px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.stage .sel .lt{background:#fff;color:var(--ac)}
+.stage .sel .lt{background:var(--onac);color:var(--ac)}
 .stage .vf{display:grid;grid-template-columns:1fr 1fr;gap:28px;flex:1;min-height:0;max-height:420px}
-.stage .vfb{background:#fff;border:3px solid var(--ac2);border-radius:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font:500 48px var(--fr);transition:.25s}
+.stage .vfb{background:var(--card);border:3px solid var(--ac2);border-radius:var(--r1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font:500 48px var(--fr);transition:.25s}
 .stage .vfb i{font-size:76px;color:var(--ac)}
-.stage .vfb.sel{background:var(--ac);border-color:var(--ac);color:#fff}
-.stage .vfb.sel i{color:#fff}
+.stage .vfb.sel{background:var(--ac);border-color:var(--ac);color:var(--onac)}
+.stage .vfb.sel i{color:var(--onac)}
 .stage .mapbox{min-height:0;display:flex;align-items:center;justify-content:center}
 .stage .lg{flex:1;min-height:0;display:grid;grid-template-columns:30% 1fr 42%}
 .stage .lgc{display:grid;align-items:center;gap:14px}
-.stage .lgi{background:#fff;border:3px solid var(--ac2);border-radius:20px;padding:12px 20px;font-size:28px;display:flex;align-items:center;gap:14px;transition:.2s}
+.stage .lgi{background:var(--card);border:3px solid var(--ac2);border-radius:var(--r1);padding:12px 20px;font-size:28px;display:flex;align-items:center;gap:14px;transition:.2s}
 .stage .dot{width:20px;height:20px;border-radius:50%;background:var(--ac2);flex-shrink:0}
 .stage .wave{display:flex;gap:5px;align-items:center;height:34px}
 .stage .wave span{width:6px;border-radius:3px;background:var(--ac);height:8px}
 .stage .wave.on span{animation:wv 1s ease-in-out infinite}
 .stage .wave span:nth-child(2n){animation-delay:.2s}.stage .wave span:nth-child(3n){animation-delay:.4s}.stage .wave span:nth-child(5n){animation-delay:.6s}
 @keyframes wv{0%,100%{height:8px}50%{height:30px}}
-.stage .ref{align-self:flex-start;display:inline-flex;gap:8px;align-items:center;font-size:24px;color:var(--ac);background:#fff;border:2px solid var(--ac2);border-radius:999px;padding:4px 18px}
+.stage .ref{align-self:flex-start;display:inline-flex;gap:8px;align-items:center;font-size:24px;color:var(--ac);background:var(--card);border:2px solid var(--ac2);border-radius:var(--r2);padding:4px 18px}
 .stage .ptxt{font-size:36px;line-height:1.6}
 .stage .bar{height:10px;background:var(--ac2);border-radius:5px;overflow:hidden;flex:1}
 .stage .bar div{height:100%;background:var(--ac);width:0}
@@ -84,45 +84,62 @@ a{color:var(--ac)}
 .stage .atl{font:500 54px/1.2 var(--fr);color:var(--ac)}
 .stage .dv{width:90px;height:5px;border-radius:3px;background:var(--ac2);flex-shrink:0}
 .stage .atx{font-size:34px;line-height:1.65}
-.stage .vslot{flex:1;min-height:0;background:#2A1E17;border-radius:24px;overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--bg)}
+.stage .vslot{flex:1;min-height:0;background:#2A1E17;border-radius:var(--r1);overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--bg)}
 .stage .vslot video{width:100%;height:100%;object-fit:contain;background:#000;display:block}
-.stage .pap{flex:1;min-height:0;background:#fff;border:2px solid var(--ac2);border-radius:24px;padding:24px 30px;font:500 54px/1.3 'Caveat',cursive;overflow:hidden;transition:border-color .3s}
+.stage .pap{flex:1;min-height:0;background:var(--card);border:2px solid var(--ac2);border-radius:var(--r1);padding:24px 30px;font:500 54px/1.3 'Caveat',cursive;overflow:hidden;transition:border-color .3s}
 .stage .pap.sent{border-color:var(--okbd)}
-.stage .papph{font:26px var(--nu);color:#B59A84}
+.stage .papph{font:26px var(--nu);color:var(--mu)}
 .stage .cur{display:inline-block;width:4px;height:48px;background:var(--ac);vertical-align:-6px;margin-left:4px;animation:bl 1s steps(1) infinite}
 @keyframes bl{50%{opacity:0}}
 .stage .steps{display:flex;gap:8px}
 .stage .steps span{width:46px;height:8px;border-radius:4px;background:var(--ac2)}
 .stage .steps span.on{background:var(--ac)}
 .stage .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px;flex:1;min-height:0;align-content:center}
-.stage .ab{background:#fff;border:2px solid var(--ac2);border-radius:24px;padding:26px 30px;display:flex;flex-direction:column;gap:14px;animation:up .5s ease both}
+.stage .ab{background:var(--card);border:2px solid var(--ac2);border-radius:var(--r1);padding:26px 30px;display:flex;flex-direction:column;gap:14px;animation:up .5s ease both}
 .stage .ans{font:500 56px/1.15 var(--fr);display:flex;align-items:center;gap:16px}
 .stage .pr{display:grid;grid-template-columns:auto auto 1fr auto;gap:10px 14px;font-size:28px;align-items:center}
-.stage .cr{margin-top:auto;background:var(--okbg);border:2px solid var(--okbd);border-radius:22px;padding:18px 24px;color:#3E5420;display:flex;gap:14px;font-size:26px;line-height:1.4;animation:up .5s .5s ease both}
+.stage .cr{margin-top:auto;background:var(--okbg);border:2px solid var(--okbd);border-radius:var(--r1);padding:18px 24px;color:var(--okt);display:flex;gap:14px;font-size:26px;line-height:1.4;animation:up .5s .5s ease both}
 .stage .cr i{font-size:32px}
 .stage .cgrid{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:22px}
-.stage .gc{background:#fff;border:2px solid var(--ac2);border-radius:22px;padding:18px 22px;display:flex;flex-direction:column;gap:8px;font-size:24px;animation:up .4s ease both;overflow:hidden}
+.stage .gc{background:var(--card);border:2px solid var(--ac2);border-radius:var(--r1);padding:18px 22px;display:flex;flex-direction:column;gap:8px;font-size:24px;animation:up .4s ease both;overflow:hidden}
 .stage .gq{font:500 28px/1.2 var(--fr)}
 @keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.stage .band{height:330px;flex-shrink:0;border-radius:24px;background:var(--slot) center/cover no-repeat;margin-bottom:28px}
+.stage .band{height:330px;flex-shrink:0;border-radius:var(--r1);background:var(--slot) center/cover no-repeat;margin-bottom:28px}
 .stage .egrid{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 44%;gap:36px}
 .stage .etl{font:500 44px/1.15 var(--fr);color:var(--ac)}
 .stage .etx{font-size:25px;line-height:1.55}
-.stage .pf{background:#fff;border:2px solid var(--ac2);border-radius:22px;padding:18px 24px;display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:21px;line-height:1.35;align-content:start;overflow:hidden}
+.stage .pf{background:var(--card);border:2px solid var(--ac2);border-radius:var(--r1);padding:18px 24px;display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:21px;line-height:1.35;align-content:start;overflow:hidden}
 .stage .pf b{color:var(--ac);font-weight:600}
 .stage .pfn{grid-column:1/3;font:500 26px var(--fr);margin-bottom:4px}
 .stage .quote{font:italic 500 34px/1.6 var(--fr);border-left:6px solid var(--ac2);padding-left:30px}
-.stage .join{display:flex;align-items:center;gap:28px;background:#fff;border:2px solid var(--ac2);border-radius:24px;padding:20px 28px;align-self:flex-start;margin-top:10px}
+.stage .join{display:flex;align-items:center;gap:28px;background:var(--card);border:2px solid var(--ac2);border-radius:var(--r1);padding:20px 28px;align-self:flex-start;margin-top:10px}
 .stage .qr{width:180px;height:180px;padding:10px;flex-shrink:0}
 .stage .code{font:500 64px/1.1 var(--fr);letter-spacing:10px;color:var(--ac)}
+
+.stage.img-dir .si{grid-template-columns:minmax(0,1fr) 36%}
+.stage.img-dir .si>.img{order:2}
+.stage.img-topo .si{display:flex;flex-direction:column;gap:26px}
+.stage.img-topo .si>.img{flex:0 0 280px}
+.stage.img-topo .si>.col{flex:1;min-height:0}
+.stage.centro .col{align-items:center;text-align:center}
+.stage.centro .col>*{max-width:100%}
+.stage.centro .tag,.stage.centro .ref{align-self:center}
+.stage.centro .row2{justify-content:center;flex-wrap:wrap}
+.stage.centro .opts,.stage.centro .vf,.stage.centro .lg,.stage.centro .cols,.stage.centro .cgrid,.stage.centro .pap,.stage.centro .cr,.stage.centro .egrid,.stage.centro .vslot,.stage.centro .split,.stage.centro .ptxt,.stage.centro .atx,.stage.centro .quote{align-self:stretch}
+.stage.centro .ptxt,.stage.centro .atx,.stage.centro .etx,.stage.centro .quote,.stage.centro .pap,.stage.centro .opt,.stage.centro .cr,.stage.centro .lgi,.stage.centro .gc{text-align:left}
+.stage.centro .foot{justify-content:center}
+.stage.tag-barra .tag{background:none;border-radius:0;border-left:6px solid var(--ac);padding:2px 0 2px 16px;color:var(--ac)}
+.stage.bg-listras{background-image:repeating-linear-gradient(45deg,var(--pat) 0 3px,transparent 3px 26px)}
+.stage.bg-pontos{background-image:radial-gradient(var(--pat) 2.5px,transparent 3px);background-size:30px 30px}
+.stage.bg-grade{background-image:linear-gradient(var(--pat) 1.5px,transparent 1.5px),linear-gradient(90deg,var(--pat) 1.5px,transparent 1.5px);background-size:44px 44px}
 
 /* ===== mapa (TV, celular e editor) ===== */
 .mapw{position:relative;display:inline-block;line-height:0}
 .mapw img{display:block;max-width:100%;border-radius:18px}
-.mapw .noimg{background:var(--slot);border:2px dashed var(--slotbd);border-radius:18px;display:flex;align-items:center;justify-content:center;color:#9A6B48}
+.mapw .noimg{background:var(--slot);border:2px dashed var(--slotbd);border-radius:18px;display:flex;align-items:center;justify-content:center;color:var(--slott)}
 .pin{position:absolute;display:flex;align-items:center;gap:.35em;transform:translate(-.9em,-50%);line-height:1.2;white-space:nowrap;cursor:pointer}
 .pin .pd{width:1.8em;height:1.8em;border-radius:50%;background:var(--ac);color:#fff;border:.13em solid #fff;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.18)}
-.pin .pl{background:#fff;border:1px solid var(--ac2);border-radius:.45em;padding:.1em .45em;font-size:.85em}
+.pin .pl{background:var(--card);border:1px solid var(--ac2);border-radius:.45em;padding:.1em .45em;font-size:.85em}
 .pin.sel .pd{background:var(--tx);box-shadow:0 0 0 .3em rgba(59,42,32,.25)}
 .pin.dim{opacity:.45}
 .mapw.tv{font-size:26px}
@@ -152,29 +169,29 @@ body.m-tv{overflow:hidden;background:#2A1E17}
 .phh .s{font-size:12px;color:var(--mu)}
 .phm{flex:1;padding:16px 16px 28px;display:flex;flex-direction:column;gap:12px}
 .ptag{align-self:flex-start;font-size:12px;padding:4px 11px;border-radius:999px;background:var(--tag);color:var(--tagt);display:inline-flex;gap:5px;align-items:center}
-.ptag.ok{background:var(--okbg);color:#3E5420}
+.ptag.ok{background:var(--okbg);color:var(--okt)}
 .pq{font:500 22px/1.25 var(--fr)}
-.pbtn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1.5px solid var(--ac2);border-radius:14px;padding:14px;font-size:17px;color:var(--tx)}
-.pbtn.sel{background:var(--ac);border-color:var(--ac);color:#fff}
+.pbtn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--ac2);border-radius:14px;padding:14px;font-size:17px;color:var(--tx)}
+.pbtn.sel{background:var(--ac);border-color:var(--ac);color:var(--onac)}
 .plt{width:32px;height:32px;border-radius:50%;background:var(--tag);color:var(--tagt);display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0}
-.pbtn.sel .plt{background:#fff;color:var(--ac)}
+.pbtn.sel .plt{background:var(--onac);color:var(--ac)}
 .pvf{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .pbtn.big{flex-direction:column;justify-content:center;min-height:130px;font:500 20px var(--fr);text-align:center}
 .pbtn.big i{font-size:32px}
-.card{background:#fff;border:1px solid var(--ac2);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.card{background:var(--card);border:1px solid var(--ac2);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
 .ptext{font-size:17px;line-height:1.6}
 .pquote{font:italic 500 17px/1.65 var(--fr);border-left:4px solid var(--ac2);padding-left:12px}
 .pimg{width:100%;border-radius:14px;display:block}
-.pta{width:100%;min-height:200px;border:1.5px solid var(--ac2);border-radius:14px;padding:12px;font:17px/1.5 var(--nu);color:var(--tx);resize:vertical;background:#fff}
+.pta{width:100%;min-height:200px;border:1.5px solid var(--ac2);border-radius:14px;padding:12px;font:17px/1.5 var(--nu);color:var(--tx);resize:vertical;background:var(--card)}
 .hint{font-size:13px;color:var(--mu);text-align:center}
 .pcen{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:30px 10px}
 .bigt{font:500 48px var(--fr);color:var(--ac)}
 .lgp{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .lgcol{display:flex;flex-direction:column;gap:8px}
-.lgb{background:#fff;border:1.5px solid var(--ac2);border-radius:12px;padding:10px 8px;font-size:14px;min-height:56px;color:var(--tx)}
+.lgb{background:var(--card);border:1.5px solid var(--ac2);border-radius:12px;padding:10px 8px;font-size:14px;min-height:56px;color:var(--tx)}
 .lgb.act{outline:3px solid var(--tx);outline-offset:1px}
 .grp2{display:flex;flex-direction:column;gap:8px;padding-bottom:14px;border-bottom:1px solid var(--ac2)}
-.inp{width:100%;font:17px var(--nu);border:1.5px solid var(--ac2);border-radius:12px;padding:12px;color:var(--tx);background:#fff}
+.inp{width:100%;font:17px var(--nu);border:1.5px solid var(--ac2);border-radius:12px;padding:12px;color:var(--tx);background:var(--card)}
 
 /* ===== CONTROLE ===== */
 body.m-ctl{background:var(--sf2);min-height:100vh}
@@ -230,6 +247,13 @@ details.grp summary{cursor:pointer;font-size:14px;color:var(--tx)}
 .acard{background:#fff;border:1px solid var(--ac2);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
 .atext{font-size:15px;line-height:1.55;color:var(--tx)}
 .qrc{width:150px;height:150px;flex-shrink:0}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.tcard{background:#fff;border:2px solid #E8C39E;border-radius:12px;padding:8px;cursor:pointer;display:flex;flex-direction:column;gap:6px;text-align:left;font:13px var(--nu);color:#3B2A20}
+.tcard:hover{border-color:#B5562F}
+.tcard.on{border-color:#B5562F;box-shadow:0 0 0 3px #F1DCCB}
+.tmini{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:8px;border:1px solid #EFE3D2}
+.ecard{background:#fff;border:1px solid var(--ac2);border-radius:12px;padding:14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.ecard.on{border:2px solid var(--ac)}
 @media(max-width:900px){.est,.ed{grid-template-columns:1fr}.tlist,.edl{position:static;max-height:300px}}
 
 /* ===== ENTRADA ===== */
@@ -333,11 +357,75 @@ const DB = (() => {
   };
 })();
 
+
+/* ---------- estudos (vários personagens no mesmo link) ---------- */
+let ATIVO = null;
+const PE = k => P('estudos/' + ATIVO + (k ? '/' + k : ''));
+function ligaEstudo(cb) { DB.on(P('ativo'), v => { if (v && v !== ATIVO) { ATIVO = v; cb(v); } }); }
+function multiOn(pares) { const us = pares.map(([p, f]) => DB.on(p, f)); return () => us.forEach(u => u && u()); }
+const slug = s => (String(s || 'estudo').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'estudo');
+function modelo() {
+  const id = () => 't' + uid(), qa = 'p' + uid(), qb = 'p' + uid(), qc = 'p' + uid(), qd = 'p' + uid();
+  const Q = (tipo, extra) => Object.assign({ tipo, img: '', explicacao: '', ref: '' }, extra);
+  const par = () => ({ titulo: '', ref: '', texto: '', img: '', inicio: null });
+  const lei = (n, t) => ({ id: id(), tipo: 'leitura', titulo: t, img: '', audio: '', fim: null, paragrafos: Array.from({ length: n }, par) });
+  const pg = (pid, fase) => ({ id: id(), tipo: 'pergunta', pid, fase });
+  const an = () => ({ id: id(), tipo: 'analise', titulo: '', texto: '', img: '' });
+  const md = () => ({ id: id(), tipo: 'medite', pergunta: '', img: '' });
+  return {
+    meta: { titulo: 'Novo personagem', subtitulo: '', livro: 'Ande corajosamente com Deus · capítulo ', refs: '', audio: '', tema: 'areia' },
+    perguntas: {
+      [qa]: Q('mc', { texto: 'Escreva a pergunta 1', opcoes: ['Opção A', 'Opção B', 'Opção C', 'Opção D'], certa: 0 }),
+      [qb]: Q('mapa', { texto: 'Escreva a pergunta 2', pinos: [{ nome: 'Lugar A', x: 30, y: 30 }, { nome: 'Lugar B', x: 55, y: 50 }, { nome: 'Lugar C', x: 70, y: 75 }], certa: 0 }),
+      [qc]: Q('vf', { texto: 'Escreva a afirmação 3', certa: true }),
+      [qd]: Q('ligue', { texto: 'Ligue os pontos', pares: [{ a: '', b: '' }, { a: '', b: '' }, { a: '', b: '' }, { a: '', b: '' }] })
+    },
+    telas: [{ id: id(), tipo: 'abertura', img: '' }, pg(qa, 'antes'), pg(qb, 'antes'), lei(3, 'Primeira leitura'), pg(qa, 'depois'), pg(qb, 'depois'), an(),
+      { id: id(), tipo: 'video', titulo: '', arquivo: '', link: '' }, md(), an(), lei(2, 'Segunda leitura'), md(), an(), pg(qc, 'antes'), pg(qd, 'antes'), lei(3, 'Terceira leitura'),
+      pg(qc, 'depois'), pg(qd, 'depois'), an(), md(), { id: id(), tipo: 'comparativo' },
+      { id: id(), tipo: 'experiencia', img: '', chamada: '', titulo: '', texto: '', perfilNome: '', perfil: [] }, { id: id(), tipo: 'relato', nome: '', pergunta: '', texto: '', destaque: '' }]
+  };
+}
+
+/* ---------- 20 temas de cor e layout ---------- */
+const LY = (img, raio, alin, tag, bg) => ({ img, raio, alin, tag, bg });
+const TM = (id, nome, fr, nu, v, lay) => ({ id, nome, fr, nu, lay, v: Object.assign({ card: '#FFFFFF', onac: '#FFFFFF', ok: '#5E7B3A', okbg: '#E3EAD3', okbd: '#8FA66A', okt: '#3E5420' }, v) });
+const ESC = { ok: '#9CCB86', okbg: '#21382A', okbd: '#56875A', okt: '#C9E7B8' };
+const TEMAS = [
+  TM('areia', 'Areia e tenda', 'Fraunces', 'Nunito', { bg: '#F4EDE1', ac: '#B5562F', ac2: '#E8C39E', tag: '#F1DCCB', tagt: '#8A3E1F', tx: '#3B2A20', mu: '#8B7363', slot: '#EFE3D2', slotbd: '#D4A880', slott: '#9A6B48' }, LY('esq', 'r', 'esq', 'pill', '')),
+  TM('noite', 'Noite no acampamento', 'Playfair Display', 'Nunito', Object.assign({ bg: '#14213D', card: '#1F2E52', ac: '#F2A541', onac: '#14213D', ac2: '#3A4C78', tag: '#2A3B63', tagt: '#F6C978', tx: '#F5F1E8', mu: '#A9B4CC', slot: '#22335C', slotbd: '#3A4C78', slott: '#A9B4CC' }, ESC), LY('dir', 'r', 'centro', 'pill', 'pontos')),
+  TM('oliveira', 'Oliveira', 'Lora', 'Nunito', { bg: '#F7F7F2', ac: '#5B6B3A', ac2: '#C9D3A8', tag: '#E6EBD6', tagt: '#3F4A26', tx: '#2A2F1E', mu: '#7A8064', slot: '#ECEFE0', slotbd: '#B7C291', slott: '#6F7A50' }, LY('esq', 'm', 'esq', 'pill', 'pontos')),
+  TM('gelo', 'Gelo e laranja', 'Caveat', 'Nunito', { bg: '#F6F4EF', ac: '#C1561A', ac2: '#EBD9CB', tag: '#F6E1D3', tagt: '#8F3C10', tx: '#2B2420', mu: '#85776C', slot: '#EFE8E0', slotbd: '#D9B9A0', slott: '#8F6A50' }, LY('esq', 'r', 'esq', 'pill', 'listras')),
+  TM('purpura', 'Púrpura e ouro', 'Playfair Display', 'Nunito', { bg: '#F5F1FA', ac: '#5B3E8A', ac2: '#D9C7EF', tag: '#F1E4C4', tagt: '#7A5A10', tx: '#2A1E40', mu: '#7D7091', slot: '#ECE5F5', slotbd: '#C3AEDF', slott: '#7A6596' }, LY('topo', 'r', 'centro', 'pill', '')),
+  TM('jezreel', 'Vale de Jezreel', 'Poppins', 'Poppins', { bg: '#E8EFE6', ac: '#2F5D50', ac2: '#A8C5B5', tag: '#D3E3D9', tagt: '#1F4A3E', tx: '#1C3029', mu: '#66807A', slot: '#DCE7DF', slotbd: '#9DBAAA', slott: '#5B7A6E' }, LY('dir', 'm', 'esq', 'barra', '')),
+  TM('pergaminho', 'Pergaminho', 'Cormorant Garamond', 'Lora', { bg: '#FBF8F1', ac: '#9E2B25', ac2: '#E9DCC6', tag: '#F3E6E2', tagt: '#7E1F1A', tx: '#2B2B2B', mu: '#7D756A', slot: '#F2ECDF', slotbd: '#D8C8A8', slott: '#8A7A5E' }, LY('esq', 'q', 'esq', 'barra', '')),
+  TM('quisom', 'Rio Quisom', 'Montserrat', 'Nunito', { bg: '#EAF2F8', ac: '#1F5F8B', ac2: '#B3D3E8', tag: '#D5E6F2', tagt: '#154A6E', tx: '#14324A', mu: '#5F7A8F', slot: '#DCE9F3', slotbd: '#9EC3DD', slott: '#52758F' }, LY('topo', 'r', 'esq', 'pill', '')),
+  TM('carvao', 'Carvão e coral', 'DM Serif Display', 'Nunito', Object.assign({ bg: '#1E1E1E', card: '#2C2C2C', ac: '#E07A5F', onac: '#1E1E1E', ac2: '#4A4A4A', tag: '#3A2B26', tagt: '#F2A48E', tx: '#F4F1EC', mu: '#ABA59D', slot: '#2A2A2A', slotbd: '#555555', slott: '#ABA59D' }, ESC), LY('dir', 'r', 'esq', 'pill', '')),
+  TM('indigo', 'Índigo e mostarda', 'Josefin Sans', 'Nunito', { bg: '#F3EFE6', ac: '#2E3A6B', ac2: '#D9A23B', tag: '#F5E3BC', tagt: '#6E4D0B', tx: '#1E2442', mu: '#6F6E78', slot: '#EAE5D8', slotbd: '#C9B98F', slott: '#777160' }, LY('esq', 'q', 'esq', 'barra', 'grade')),
+  TM('rosa', 'Rosa do deserto', 'Quicksand', 'Quicksand', { bg: '#FBF1EE', ac: '#B45A6E', ac2: '#EDC6CF', tag: '#F7DDE3', tagt: '#8A3A4D', tx: '#3D2429', mu: '#8E7076', slot: '#F4E4E7', slotbd: '#D9A9B4', slott: '#93707A' }, LY('topo', 'r', 'centro', 'pill', '')),
+  TM('galileia', 'Mar da Galileia', 'Montserrat', 'Nunito', Object.assign({ bg: '#0F2A33', card: '#173B47', ac: '#4FC1B9', onac: '#0F2A33', ac2: '#2C5866', tag: '#1D4A55', tagt: '#8FE0DA', tx: '#EAF6F5', mu: '#9BB9BD', slot: '#15363F', slotbd: '#2C5866', slott: '#9BB9BD' }, ESC), LY('esq', 'r', 'esq', 'pill', '')),
+  TM('trigo', 'Trigo dourado', 'Lora', 'Nunito', { bg: '#FAF3E0', ac: '#9A6A08', ac2: '#E8D29A', tag: '#F3E3B5', tagt: '#6E4B05', tx: '#3A2E14', mu: '#857754', slot: '#F0E6CC', slotbd: '#D4BC80', slott: '#85704A' }, LY('dir', 'r', 'esq', 'pill', 'pontos')),
+  TM('cedro', 'Cedro do Líbano', 'DM Serif Display', 'Poppins', { bg: '#F1F4EF', ac: '#3E5641', ac2: '#BCCAB8', tag: '#DDE5DA', tagt: '#2C3F2E', tx: '#1F2A20', mu: '#6C7A6C', slot: '#E3E9E1', slotbd: '#AEBFAA', slott: '#66786A' }, LY('esq', 'q', 'esq', 'barra', '')),
+  TM('lavanda', 'Lavanda', 'Quicksand', 'Nunito', { bg: '#F4F2FB', ac: '#6C5DD3', ac2: '#D2CCF5', tag: '#E4E0FA', tagt: '#4A3DAA', tx: '#26224A', mu: '#77739A', slot: '#EAE7F8', slotbd: '#BDB5EE', slott: '#77739A' }, LY('esq', 'r', 'esq', 'pill', '')),
+  TM('terracota', 'Terracota moderna', 'Poppins', 'Poppins', { bg: '#FFF6EF', ac: '#C64B24', ac2: '#F2C3AE', tag: '#FBE0D3', tagt: '#9C3517', tx: '#33221A', mu: '#8D7366', slot: '#F7E6DB', slotbd: '#E2B39A', slott: '#93705E' }, LY('topo', 'q', 'centro', 'pill', '')),
+  TM('tarde', 'Céu da tarde', 'Playfair Display', 'Nunito', { bg: '#FFF4E6', ac: '#D9603F', ac2: '#F4C08A', tag: '#FCE1C9', tagt: '#A3442A', tx: '#3B2A22', mu: '#8E7565', slot: '#F9E7D3', slotbd: '#EDBE8E', slott: '#957055' }, LY('esq', 'r', 'esq', 'pill', 'listras')),
+  TM('ardosia', 'Ardósia', 'Montserrat', 'Montserrat', { bg: '#ECEFF3', ac: '#34495E', ac2: '#BCC6D1', tag: '#DCE2E9', tagt: '#24384B', tx: '#1F2933', mu: '#6B7785', slot: '#E1E6EC', slotbd: '#AEB9C5', slott: '#66727F' }, LY('dir', 'm', 'esq', 'barra', '')),
+  TM('estrelada', 'Noite estrelada', 'Cormorant Garamond', 'Nunito', Object.assign({ bg: '#101527', card: '#1B2240', ac: '#E9C46A', onac: '#101527', ac2: '#2E3760', tag: '#252D52', tagt: '#F2D892', tx: '#EEF0F8', mu: '#9FA6C4', slot: '#181F3A', slotbd: '#2E3760', slott: '#9FA6C4' }, ESC), LY('esq', 'r', 'centro', 'pill', 'pontos')),
+  TM('menta', 'Menta fresca', 'Josefin Sans', 'Quicksand', { bg: '#EEF8F4', ac: '#17877B', ac2: '#A9DDD3', tag: '#D3EFE9', tagt: '#117267', tx: '#18332F', mu: '#5F7F79', slot: '#DDF0EB', slotbd: '#93CFC3', slott: '#5A807A' }, LY('esq', 'r', 'esq', 'pill', 'grade'))
+];
+const RAIOS = { r: ['24px', '999px'], m: ['14px', '14px'], q: ['6px', '6px'] };
+const temaDe = c => TEMAS.find(t => t.id === (c && c.meta && c.meta.tema)) || TEMAS[0];
+function hexA(h, a) { h = String(h || '#000').replace('#', ''); if (h.length === 3) h = h.split('').map(x => x + x).join(''); const n = parseInt(h, 16); return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},${a})`; }
+function varsTema(el, tm) { for (const k in tm.v) el.style.setProperty('--' + k, tm.v[k]); el.style.setProperty('--sf2', tm.v.card); el.style.setProperty('--fr', `'${tm.fr}', Georgia, serif`); el.style.setProperty('--nu', `'${tm.nu}', system-ui, sans-serif`); el.style.setProperty('--pat', hexA(tm.v.ac2, .4)); const r = RAIOS[tm.lay.raio] || RAIOS.r; el.style.setProperty('--r1', r[0]); el.style.setProperty('--r2', r[1]); }
+const classeStage = tm => 'stage img-' + tm.lay.img + (tm.lay.alin === 'centro' ? ' centro' : '') + (tm.lay.tag === 'barra' ? ' tag-barra' : '') + (tm.lay.bg ? ' bg-' + tm.lay.bg : '');
+function aplicaStage(el, c) { const tm = temaDe(c); varsTema(el, tm); el.className = classeStage(tm); }
+const IMG_EXEMPLO = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="#D9CBB6"/><circle cx="300" cy="80" r="38" fill="#F2E3C2"/><path d="M0 230 L110 120 L190 200 L260 140 L400 250 L400 300 L0 300Z" fill="#9C8467"/><path d="M0 260 L150 190 L400 280 L400 300 L0 300Z" fill="#7A6450"/></svg>');
+
 /* ---------- conteúdo padrão ---------- */
 function DEF() {
   const par = (titulo, ref, texto) => ({ titulo, ref, texto, img: '', inicio: null });
   return {
-    meta: { titulo: 'Jael', subtitulo: 'A mais abençoada das mulheres', livro: 'Ande corajosamente com Deus · capítulo 17', refs: 'Juízes 4:9, 11, 17-22; 5:24-31', audio: 'wcg_T_21.mp3' },
+    meta: { titulo: 'Jael', subtitulo: 'A mais abençoada das mulheres', livro: 'Ande corajosamente com Deus · capítulo 17', refs: 'Juízes 4:9, 11, 17-22; 5:24-31', audio: 'wcg_T_21.mp3', tema: 'areia' },
     perguntas: {
       p1: { tipo: 'mc', texto: 'Quantos carros de guerra Sísera comandava?', opcoes: ['300', '600', '900', '1.200'], certa: 2, img: '', explicacao: 'Sísera tinha 900 carros de guerra com foices de ferro.', ref: 'Juízes 4:3' },
       p2: { tipo: 'mapa', texto: 'Onde o exército de Sísera foi derrotado?', img: '', pinos: [{ nome: 'Vale de Jezreel', x: 46, y: 24 }, { nome: 'Jerusalém', x: 42, y: 56 }, { nome: 'Jericó', x: 64, y: 52 }, { nome: 'Berseba', x: 34, y: 84 }], certa: 0, explicacao: 'Baraque desceu do monte Tabor, e o exército de Sísera foi derrotado junto ao rio Quisom, no vale de Jezreel.', ref: 'Juízes 4:13-16' },
@@ -425,7 +513,7 @@ const ckI = ok => `<i class="ti ti-${ok ? 'circle-check' : 'circle-x'}" style="c
 function ligList(q, v, cls = 'pr') { const ps = arr(q.pares); return `<div class="${cls}">${ps.map((p, i) => { const j = ligPar(v, i); return `<span>${esc(p.a)}</span><i class="ti ti-arrow-right" style="color:var(--mu)"></i><span>${j == null ? '—' : esc(ps[j]?.b)}</span>${ckI(j === i)}`; }).join('')}</div>`; }
 
 /* ---------- palco (TV e prévia do controle) ---------- */
-function withImg(src, inner, cls = '') { return src ? `<div class="split"><div class="img" style="background-image:url('${src}')"></div><div class="col ${cls}">${inner}</div></div>` : `<div class="col ${cls}">${inner}</div>`; }
+function withImg(src, inner, cls = '') { return src ? `<div class="split si"><div class="img" style="background-image:url('${src}')"></div><div class="col ${cls}">${inner}</div></div>` : `<div class="col ${cls}">${inner}</div>`; }
 function msgStage(t) { return `<div class="center"><i class="ti ti-alert-circle" style="font-size:64px;color:var(--ac)"></i><div class="q">${esc(t)}</div></div>`; }
 function mapaHTML(q, sel, modo) { const ps = arr(q.pinos); const pins = ps.map((p, i) => `<div class="pin ${sel == null ? '' : +sel === i ? 'sel' : 'dim'}" data-pin="${i}" style="left:${+p.x || 0}%;top:${+p.y || 0}%"><span class="pd">${LET[i]}</span>${p.nome ? `<span class="pl">${esc(p.nome)}</span>` : ''}</div>`).join(''); return `<div class="mapw ${modo}">${q.img ? `<img src="${q.img}" alt="Mapa" draggable="false">` : `<div class="noimg"><i class="ti ti-map"></i></div>`}${pins}</div>`; }
 
@@ -488,7 +576,7 @@ const ST = {
     return `<div class="col"><span class="tag"><i class="ti ti-message-circle"></i>${esc(t.nome || '')}</span><div class="q" style="font-size:38px">${nl(t.pergunta || '')}</div><div class="quote fit">${q}</div></div>`;
   }
 };
-function stageHTML(t, x) { if (!t) return msgStage('Nenhuma tela'); return ST[t.tipo] ? ST[t.tipo](t, x) : msgStage('Tipo desconhecido'); }
+function stageHTML(t, x) { if (!t) return `<div class="center"><i class="ti ti-loader" style="font-size:64px;color:var(--ac)"></i><div class="q">Aguardando o controle…</div></div>`; return ST[t.tipo] ? ST[t.tipo](t, x) : msgStage('Tipo desconhecido'); }
 function fitEl(el) { el.style.fontSize = ''; let fs = parseFloat(getComputedStyle(el).fontSize), g = 0; while (el.scrollHeight > el.clientHeight + 2 && fs > 14 && g++ < 80) { fs -= 1.5; el.style.fontSize = fs + 'px'; } }
 function postStage(root) {
   root.querySelectorAll('[data-qr]').forEach(el => { el.innerHTML = ''; const w = el.clientWidth - 16 || 150; if (window.QRCode) { try { new QRCode(el, { text: el.dataset.qr, width: w, height: w, colorDark: '#3B2A20', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M }); } catch (e) { el.innerHTML = '<i class="ti ti-qrcode"></i>'; } } else el.innerHTML = '<i class="ti ti-qrcode" style="font-size:120px"></i>'; });
@@ -499,12 +587,12 @@ function postStage(root) {
    TV
    ===================================================================== */
 function modoTV() {
-  document.body.className = 'm-tv'; document.title = 'Jael · TV';
+  document.body.className = 'm-tv'; document.title = 'TV · Estudo interativo';
   app.innerHTML = `<div id="tvwrap"><div class="stage" id="stage"></div></div><div id="vidhold" style="display:none"><video id="vid" playsinline preload="metadata"></video></div><audio id="aud" preload="auto"></audio>
-  <div class="tvov" id="tvov"><div><div class="ovt">Jael</div><div class="ovs">Sala ${esc(SALA)}${DB.remoto ? '' : ' · modo de teste local'}</div><button class="btn pri" id="tvgo" style="font-size:22px;padding:16px 28px"><i class="ti ti-player-play"></i> Iniciar apresentação</button><div class="ovh">Toque para ativar o som e a tela cheia</div></div></div>
+  <div class="tvov" id="tvov"><div><div class="ovt" id="ovt">Estudo</div><div class="ovs">Sala ${esc(SALA)}${DB.remoto ? '' : ' · modo de teste local'}</div><button class="btn pri" id="tvgo" style="font-size:22px;padding:16px 28px"><i class="ti ti-player-play"></i> Iniciar apresentação</button><div class="ovh">Toque para ativar o som e a tela cheia</div></div></div>
   <div class="badge">${DB.remoto ? '' : 'teste local · '}sala ${esc(SALA)}</div>`;
   const stage = $('#stage'), aud = $('#aud'), vid = $('#vid'), hold = $('#vidhold');
-  let C = norm(DEF()), E = { idx: 0, sub: 0 }, R = {}, A = {}, D = {}, PART = null;
+  let C = norm({ telas: [] }), E = { idx: 0, sub: 0 }, R = {}, A = {}, D = {}, PART = null, unsubE = null;
   let lastIdx = -1, lastN, lastPar = -1, lastRep = 0;
   const escala = () => { const s = Math.min(innerWidth / 1600, innerHeight / 900); stage.style.transform = `translate(${(innerWidth - 1600 * s) / 2}px,${(innerHeight - 900 * s) / 2}px) scale(${s})`; };
   addEventListener('resize', escala); escala();
@@ -522,10 +610,12 @@ function modoTV() {
   }
   function render() {
     const t = cur();
-    if (E.idx !== lastIdx) { lastIdx = E.idx; trocaTela(t); }
+    const chave = (E.idx || 0) + '|' + (t ? t.id + '|' + (t.tipo === 'video' ? t.arquivo || '' : t.tipo === 'leitura' ? (t.audio || C.meta.audio || '') : '') : '-');
+    if (chave !== lastIdx) { lastIdx = chave; trocaTela(t); }
     const pos = posLocal();
     lastPar = t && t.tipo === 'leitura' ? parIdx(t, E, pos) : -1;
     if (vid.parentNode !== hold) hold.appendChild(vid);
+    aplicaStage(stage, C);
     stage.innerHTML = stageHTML(t, { C, E, R, A, D, PART, pos, idx: E.idx, preview: false, vErro: t && t.tipo === 'video' && !!(vid.error && vid.getAttribute('src')) });
     postStage(stage);
     const slot = $('#videoSlot'); if (slot) slot.appendChild(vid);
@@ -557,15 +647,20 @@ function modoTV() {
   vid.addEventListener('error', () => { if (cur()?.tipo === 'video') render(); report(true); });
   aud.addEventListener('error', () => report(true));
   vid.addEventListener('loadeddata', () => { if (cur()?.tipo === 'video') report(true); });
-  DB.on(P('conteudo'), v => { C = norm(v || DEF()); render(); });
+  ligaEstudo(() => {
+    if (unsubE) unsubE(); lastIdx = -1; R = {}; A = {}; D = {};
+    unsubE = multiOn([
+      [PE('conteudo'), v => { C = norm(v || { telas: [] }); document.title = (C.meta.titulo || 'Estudo') + ' · TV'; $('#ovt').textContent = C.meta.titulo || 'Estudo'; render(); }],
+      [PE('respostas'), v => { R = v || {}; render(); }],
+      [PE('anotacoes'), v => { A = v || {}; if (cur()?.tipo === 'medite') render(); }],
+      [PE('digitando'), v => { D = v || {}; if (cur()?.tipo === 'medite') render(); }]
+    ]);
+  });
   DB.on(P('estado'), v => {
     E = Object.assign({ idx: 0, sub: 0 }, v || {}); render();
     const m = E.midia;
     if (m && m.n !== lastN) { if (lastN !== undefined) cmd(m); lastN = m.n; } else if (!m && lastN === undefined) lastN = null;
   });
-  DB.on(P('respostas'), v => { R = v || {}; render(); });
-  DB.on(P('anotacoes'), v => { A = v || {}; if (cur()?.tipo === 'medite') render(); });
-  DB.on(P('digitando'), v => { D = v || {}; if (cur()?.tipo === 'medite') render(); });
   DB.on(P('participante'), v => { const mudou = (v && v.nome) !== (PART && PART.nome); PART = v; if (mudou) render(); });
   if (document.fonts) document.fonts.ready.then(() => render());
 }
@@ -574,16 +669,16 @@ function modoTV() {
    CELULAR
    ===================================================================== */
 function modoCel() {
-  document.body.className = 'm-cel'; document.title = 'Jael · Celular';
-  let C = norm(DEF()), E = { idx: 0, sub: 0 }, R = {}, A = {}, POS = null;
+  document.body.className = 'm-cel'; document.title = 'Celular · Estudo interativo';
+  let C = norm({ telas: [] }), E = { idx: 0, sub: 0 }, R = {}, A = {}, POS = null, unsubE = null;
   let nome = localStorage.getItem('jael-nome-' + SALA) || '', cad = false, act = null, lastIdx = -1, lastPK = '';
   let fs = +localStorage.getItem('jael-fs') || 17;
   const drafts = {};
   const cur = () => C.telas[Math.min(E.idx || 0, C.telas.length - 1)];
   const hb = () => { if (nome) DB.set(P('participante'), { nome, visto: Date.now() }); };
   setInterval(hb, 8000);
-  const enviaDig = debounce((tid, v) => DB.set(P('digitando/' + tid), v), 220);
-  const estudoKey = () => SALA + '-' + (E.estudoId || '1');
+  const enviaDig = debounce((tid, v) => DB.set(PE('digitando/' + tid), v), 220);
+  const estudoKey = () => SALA + '-' + ATIVO + '-' + (E.estudoId || '1');
   const cadLocal = () => { try { return JSON.parse(localStorage.getItem('jael-caderno')) || {}; } catch (e) { return {}; } };
   function syncCad() {
     const all = cadLocal(), k = estudoKey(), it = {};
@@ -643,14 +738,14 @@ function modoCel() {
   function render() {
     const ta = $('#med'); if (ta) drafts[ta.dataset.tid] = ta.value; const foco = ta && document.activeElement === ta;
     if (!nome) {
-      app.innerHTML = `<div class="ph"><main class="phm"><div class="pcen"><div class="bigt">${esc(C.meta.titulo)}</div><div class="mu">${esc(C.meta.subtitulo)}</div></div><label class="mu" for="nome">Seu nome</label><input id="nome" class="inp" autocomplete="name" placeholder="Digite seu nome"><button class="btn pri" data-a="entrar" style="padding:14px;font-size:17px">Entrar</button><div class="hint">Sala ${esc(SALA)}${DB.remoto ? '' : ' · modo de teste local'}</div></main></div>`;
+      app.innerHTML = `<div class="ph"><main class="phm"><div class="pcen"><div class="bigt">${esc(C.meta.titulo || 'Estudo')}</div><div class="mu">${esc(C.meta.subtitulo)}</div></div><label class="mu" for="nome">Seu nome</label><input id="nome" class="inp" autocomplete="name" placeholder="Digite seu nome"><button class="btn pri" data-a="entrar" style="padding:14px;font-size:17px">Entrar</button><div class="hint">Sala ${esc(SALA)}${DB.remoto ? '' : ' · modo de teste local'}</div></main></div>`;
       return;
     }
     const t = cur();
     app.innerHTML = `<div class="ph"><header class="phh"><div><div class="t">${esc(C.meta.titulo)}</div><div class="s">${esc(nome)} · sala ${esc(SALA)}</div></div><button class="btn sm ${cad ? 'on' : ''}" data-a="cad"><i class="ti ti-notebook"></i> Caderno</button></header><main class="phm">${cad ? cadernoHTML() : (t ? (PH[t.tipo] ? PH[t.tipo](t) : '') : '<p>Aguardando…</p>')}</main>${DB.remoto ? '' : '<div class="hint" style="padding:6px">Modo de teste local</div>'}</div>`;
     const n = $('#med'); if (n && foco) { n.focus(); n.setSelectionRange(n.value.length, n.value.length); }
   }
-  const salvaResp = (t, v) => { const f = t.fase === 'depois' ? 'depois' : 'antes'; DB.set(P(`respostas/${t.pid}/${f}`), v); };
+  const salvaResp = (t, v) => { const f = t.fase === 'depois' ? 'depois' : 'antes'; DB.set(PE(`respostas/${t.pid}/${f}`), v); };
   app.addEventListener('click', async e => {
     const b = e.target.closest('[data-a],[data-ans],[data-pin],[data-la],[data-lb],[data-copyall],[data-copyone]'); if (!b) return;
     const t = cur();
@@ -672,16 +767,21 @@ function modoCel() {
     if (b.dataset.a === 'copytxt' && t.tipo === 'analise') { copiarAvisando(t.texto || ''); return; }
     if (b.dataset.a === 'send' && t.tipo === 'medite') {
       const v = ($('#med').value || '').trim(); if (!v) { toast('Escreva uma resposta primeiro'); return; }
-      await DB.set(P('anotacoes/' + t.id), { pergunta: t.pergunta || '', texto: v, ts: Date.now() });
-      DB.set(P('digitando/' + t.id), null); delete drafts[t.id]; toast('Resposta enviada'); return;
+      await DB.set(PE('anotacoes/' + t.id), { pergunta: t.pergunta || '', texto: v, ts: Date.now() });
+      DB.set(PE('digitando/' + t.id), null); delete drafts[t.id]; toast('Resposta enviada'); return;
     }
   });
   app.addEventListener('input', e => { if (e.target.id === 'med') { drafts[e.target.dataset.tid] = e.target.value; enviaDig(e.target.dataset.tid, e.target.value); } });
   app.addEventListener('keydown', e => { if (e.target.id === 'nome' && e.key === 'Enter') app.querySelector('[data-a="entrar"]').click(); });
-  DB.on(P('conteudo'), v => { C = norm(v || DEF()); render(); });
+  ligaEstudo(() => {
+    if (unsubE) unsubE(); R = {}; A = {}; act = null;
+    unsubE = multiOn([
+      [PE('conteudo'), v => { C = norm(v || { telas: [] }); varsTema(document.documentElement, temaDe(C)); document.title = (C.meta.titulo || 'Estudo') + ' · Celular'; render(); }],
+      [PE('respostas'), v => { R = v || {}; if (cur()?.tipo === 'pergunta' || cur()?.tipo === 'comparativo') render(); }],
+      [PE('anotacoes'), v => { A = v || {}; syncCad(); if (cad || cur()?.tipo === 'medite') render(); }]
+    ]);
+  });
   DB.on(P('estado'), v => { E = Object.assign({ idx: 0, sub: 0 }, v || {}); if (E.idx !== lastIdx) { lastIdx = E.idx; act = null; if (!cad) scrollTo(0, 0); } render(); });
-  DB.on(P('respostas'), v => { R = v || {}; if (cur()?.tipo === 'pergunta' || cur()?.tipo === 'comparativo') render(); });
-  DB.on(P('anotacoes'), v => { A = v || {}; syncCad(); if (cad || cur()?.tipo === 'medite') render(); });
   DB.on(P('midiaPos'), v => { POS = v; const t = cur(); if (t && t.tipo === 'leitura') { const k = parIdx(t, E, POS) + '|' + !!(POS && POS.tocando); if (k !== lastPK) { lastPK = k; render(); } } });
   hb();
 }
@@ -690,14 +790,22 @@ function modoCel() {
    CONTROLE
    ===================================================================== */
 function modoCtl() {
-  document.body.className = 'm-ctl'; document.title = 'Jael · Controle';
-  let C = null, E = { idx: 0, sub: 0 }, R = {}, A = {}, D = {}, PART = null, POS = null, HIST = {};
+  document.body.className = 'm-ctl'; document.title = 'Controle · Estudo interativo';
+  let C = null, E = { idx: 0, sub: 0 }, R = {}, A = {}, D = {}, PART = null, POS = null, HIST = {}, IDX = {}, unsubE = null, pend = false;
   let tab = 'estudo', edSel = 0, selPin = 0, bancoAberto = null, dragI = null, lastPK = '';
-  app.innerHTML = `<header class="cbar"><span class="lgo">Jael · Controle</span><span class="pill"><i class="ti ti-door"></i> Sala ${esc(SALA)}</span><span class="pill ${DB.remoto ? 'ok' : ''}" title="${DB.remoto ? 'Sincronizando pelo Firebase' : 'Sem Firebase: só entre abas deste navegador'}">${DB.remoto ? '<i class="ti ti-cloud"></i> Firebase' : '<i class="ti ti-device-laptop"></i> Teste local'}</span><span id="pres" class="pill"></span><span id="saved" class="mu" style="font-size:12px"></span>
-  <nav class="tabs">${[['estudo', 'Estudo', 'ti-presentation'], ['editar', 'Editar', 'ti-edit'], ['anot', 'Anotações', 'ti-notebook'], ['config', 'Configurar', 'ti-settings']].map(([k, l, i]) => `<button data-tab="${k}"><i class="ti ${i}"></i> ${l}</button>`).join('')}</nav></header><main id="cm"><div class="pcen" style="padding:60px">Carregando…</div></main>`;
+  app.innerHTML = `<header class="cbar"><span class="lgo" id="lgo">Controle</span><span class="pill"><i class="ti ti-door"></i> Sala ${esc(SALA)}</span><span class="pill ${DB.remoto ? 'ok' : ''}" title="${DB.remoto ? 'Sincronizando pelo Firebase' : 'Sem Firebase: só entre abas deste navegador'}">${DB.remoto ? '<i class="ti ti-cloud"></i> Firebase' : '<i class="ti ti-device-laptop"></i> Teste local'}</span><span id="pres" class="pill"></span><span id="saved" class="mu" style="font-size:12px"></span>
+  <nav class="tabs">${[['estudo', 'Apresentar', 'ti-presentation'], ['editar', 'Editar', 'ti-edit'], ['estudos', 'Estudos', 'ti-books'], ['anot', 'Anotações', 'ti-notebook'], ['config', 'Configurar', 'ti-settings']].map(([k, l, i]) => `<button data-tab="${k}"><i class="ti ${i}"></i> ${l}</button>`).join('')}</nav></header><main id="cm"><div class="pcen" style="padding:60px">Carregando…</div></main>`;
   const cm = $('#cm');
-  const salvarC = debounce(() => { DB.set(P('conteudo'), C); try { localStorage.setItem('jael-backup-' + SALA, JSON.stringify(C)); } catch (e) {} $('#saved').textContent = 'Salvo'; setTimeout(() => { if ($('#saved').textContent === 'Salvo') $('#saved').textContent = ''; }, 1500); }, 500);
-  const touch = () => { $('#saved').textContent = 'Salvando…'; salvarC(); };
+  const atualizaTitulo = () => { const t = (C && C.meta.titulo) || 'Estudo'; $('#lgo').textContent = t + ' · Controle'; document.title = t + ' · Controle'; };
+  async function salvarAgora() {
+    if (!pend || !ATIVO || !C) return; pend = false; const eid = ATIVO;
+    await DB.set(P('estudos/' + eid + '/conteudo'), C);
+    DB.update(P('indice/' + eid), { titulo: C.meta.titulo || '', subtitulo: C.meta.subtitulo || '', atualizado: Date.now() });
+    try { localStorage.setItem('jael-backup-' + SALA + '-' + eid, JSON.stringify(C)); } catch (e) {}
+    $('#saved').textContent = 'Salvo'; setTimeout(() => { if ($('#saved').textContent === 'Salvo') $('#saved').textContent = ''; }, 1500); atualizaTitulo();
+  }
+  const salvarDeb = debounce(salvarAgora, 500);
+  const touch = () => { pend = true; $('#saved').textContent = 'Salvando…'; salvarDeb(); };
   const cur = () => C.telas[Math.min(E.idx || 0, C.telas.length - 1)];
   const midia = (acao, ex = {}) => DB.update(P('estado'), { midia: Object.assign({ acao, n: Date.now() }, ex) });
   function go(i) { if (i < 0 || i >= C.telas.length) return; DB.update(P('estado'), { idx: i, sub: 0, midia: { acao: 'pause', n: Date.now() } }); }
@@ -706,7 +814,7 @@ function modoCtl() {
   function nextLabel(t) { const s = E.sub || 0; if (t?.tipo === 'comparativo') { const n = compList(C).length; if (s < n - 1) return 'Próxima pergunta'; if (s === n - 1) return 'Visão geral'; } if (t?.tipo === 'leitura' && !temMarcas(t) && s < t.paragrafos.length - 1) return 'Próximo parágrafo'; const nx = C.telas[E.idx + 1]; return nx ? 'Próximo: ' + nomeTela(C, nx) : 'Fim do estudo'; }
   function pres() { const el = $('#pres'); if (!el) return; const on = PART && PART.visto && Date.now() - PART.visto < 30000; el.className = 'pill ' + (on ? 'ok' : ''); el.innerHTML = PART && PART.nome ? `<i class="ti ti-device-mobile"></i> ${esc(PART.nome)} · ${on ? 'conectado' : 'desconectado'}` : '<i class="ti ti-device-mobile"></i> Sem participante'; }
   const linkRow = (lab, url) => `<div class="lrow"><span class="mu" style="min-width:150px">${lab}</span><a href="${esc(url)}" target="_blank" rel="noopener">${esc(url)}</a><button class="btn sm" data-copy="${esc(url)}" title="Copiar"><i class="ti ti-copy"></i></button></div>`;
-  function setTab(k) { tab = k; document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === k)); ({ estudo: renderEstudo, editar: renderEditar, anot: renderAnot, config: renderConfig })[k](); }
+  function setTab(k) { tab = k; document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === k)); ({ estudo: renderEstudo, editar: renderEditar, estudos: renderEstudos, anot: renderAnot, config: renderConfig })[k](); }
   document.querySelector('.tabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) setTab(b.dataset.tab); });
 
   /* ---- aba Estudo ---- */
@@ -741,7 +849,7 @@ function modoCtl() {
     if (sc != null) $('.tlist').scrollTop = sc; else { const on = $('.trow.on'); if (on) on.scrollIntoView({ block: 'center' }); }
     desenhaPrev();
   }
-  function desenhaPrev() { const pv = $('#prev'), ps = $('#pstage'); if (!pv || !ps) return; const s = pv.clientWidth / 1600; ps.style.transform = `scale(${s})`; pv.style.height = 900 * s + 'px'; ps.innerHTML = stageHTML(cur(), { C, E, R, A, D, PART, pos: POS, idx: E.idx, preview: true }); postStage(ps); }
+  function desenhaPrev() { const pv = $('#prev'), ps = $('#pstage'); if (!pv || !ps) return; aplicaStage(ps, C); const s = pv.clientWidth / 1600; ps.style.transform = `scale(${s})`; pv.style.height = 900 * s + 'px'; ps.innerHTML = stageHTML(cur(), { C, E, R, A, D, PART, pos: POS, idx: E.idx, preview: true }); postStage(ps); }
   function onPos() {
     if (tab !== 'estudo') return; const t = cur(); if (!t || (t.tipo !== 'leitura' && t.tipo !== 'video')) return;
     const k = (t.tipo === 'leitura' ? parIdx(t, E, POS) : 0) + '|' + !!(POS && POS.tocando) + '|' + (POS && POS.tela) + '|' + (POS && POS.erro);
@@ -818,7 +926,7 @@ function modoCtl() {
     experiencia: (t, p) => `${fImg('Imagem (larga, 2:1)', p + '.img')}${fTxt('Chamada', p + '.chamada')}${fTxt('Título', p + '.titulo')}${fArea('Texto', p + '.texto', 5)}<div class="grp"><h4>Perfil</h4>${fTxt('Título do perfil', p + '.perfilNome')}${t.perfil.map((r, i) => `<div class="row" style="flex-wrap:nowrap"><input class="tin2" style="width:130px" data-b="${p}.perfil.${i}.rotulo" value="${esc(r.rotulo)}" placeholder="Rótulo"><input style="flex:1" class="tin2" data-b="${p}.perfil.${i}.valor" value="${esc(r.valor)}" placeholder="Valor">${listBtns(p + '.perfil', i)}</div>`).join('')}<div><button class="btn sm" data-list="${p}.perfil" data-op="add" data-tpl="perfil"><i class="ti ti-plus"></i> Adicionar linha</button></div></div>`,
     relato: (t, p) => `${fTxt('Nome', p + '.nome')}${fTxt('Pergunta', p + '.pergunta')}${fArea('Texto do relato', p + '.texto', 9)}${fTxt('Trecho em destaque (copie exatamente como está no texto)', p + '.destaque')}`
   };
-  function formMeta() { return `<h3 class="fh">Informações gerais</h3>${fTxt('Título', 'meta.titulo')}${fTxt('Subtítulo', 'meta.subtitulo')}${fTxt('Livro / capítulo', 'meta.livro')}${fTxt('Referências', 'meta.refs')}${fTxt('Arquivo de áudio da leitura (MP3 na mesma pasta do HTML)', 'meta.audio')}<div class="grp"><h4><i class="ti ti-shield-check"></i> Cópia de segurança</h4><div class="row"><button class="btn sm" data-ed="export"><i class="ti ti-download"></i> Exportar conteúdo (.json)</button><label class="btn sm"><i class="ti ti-upload"></i> Importar conteúdo<input type="file" id="impf" accept=".json,application/json" hidden></label><button class="btn sm" data-ed="reset"><i class="ti ti-restore"></i> Restaurar conteúdo padrão</button></div></div>`; }
+  function formMeta() { return `<h3 class="fh">Informações gerais</h3>${fTxt('Título', 'meta.titulo')}${fTxt('Subtítulo', 'meta.subtitulo')}${fTxt('Livro / capítulo', 'meta.livro')}${fTxt('Referências', 'meta.refs')}${fTxt('Arquivo de áudio da leitura (MP3 na mesma pasta do HTML)', 'meta.audio')}<div class="grp"><h4><i class="ti ti-shield-check"></i> Cópia de segurança</h4><div class="row"><button class="btn sm" data-ed="export"><i class="ti ti-download"></i> Exportar conteúdo (.json)</button><label class="btn sm"><i class="ti ti-upload"></i> Importar conteúdo<input type="file" id="impf" accept=".json,application/json" hidden></label><button class="btn sm" data-ed="reset"><i class="ti ti-restore"></i> Substituir pelo modelo em branco</button></div></div>`; }
   function formBanco() {
     const usado = pid => C.telas.filter(t => t.tipo === 'pergunta' && t.pid === pid).length;
     return `<h3 class="fh">Banco de perguntas</h3><div class="note">Cada pergunta pode aparecer em mais de uma tela (antes e depois). Edite aqui ou dentro da própria tela.</div><div class="row"><span class="mu" style="font-size:13px">Nova pergunta:</span>${Object.entries(QTIPOS).map(([k, v]) => `<button class="btn sm" data-ed="newq" data-k="${k}"><i class="ti ${QICON[k]}"></i> ${v}</button>`).join('')}</div>
@@ -847,18 +955,43 @@ function modoCtl() {
   function renderAnot() {
     if (tab !== 'anot') return;
     const atual = listaAtual(), hist = Object.keys(HIST || {}).sort((a, b) => b - a);
-    cm.innerHTML = `<div class="an"><div class="anh"><h3 class="fh">Anotações do estudo atual</h3><div class="row"><button class="btn sm" data-cp="cur"><i class="ti ti-copy"></i> Copiar tudo</button><button class="btn sm" data-dl="cur"><i class="ti ti-file-download"></i> Baixar .txt</button><button class="btn sm" data-ed="novo"><i class="ti ti-refresh"></i> Novo estudo</button></div></div>
+    cm.innerHTML = `<div class="an"><div class="anh"><h3 class="fh">Anotações · ${esc(C.meta.titulo)}</h3><div class="row"><button class="btn sm" data-cp="cur"><i class="ti ti-copy"></i> Copiar tudo</button><button class="btn sm" data-dl="cur"><i class="ti ti-file-download"></i> Baixar .txt</button><button class="btn sm" data-ed="novo"><i class="ti ti-refresh"></i> Recomeçar este estudo</button></div></div>
     ${atual.length ? atual.map(cardAnot).join('') : '<div class="note">Nenhuma resposta ainda. As respostas das telas Medite aparecem aqui.</div>'}
-    <h3 class="fh" style="margin-top:20px">Estudos anteriores</h3>${hist.length ? hist.map(k => { const its = listaHist(k); return `<details class="grp"><summary><b>${esc(HIST[k].titulo || 'Estudo')}</b> · ${new Date(+k).toLocaleString('pt-BR')} · ${its.length} resposta(s)</summary><div class="row"><button class="btn sm" data-cp="${k}"><i class="ti ti-copy"></i> Copiar tudo</button><button class="btn sm" data-dl="${k}"><i class="ti ti-file-download"></i> Baixar .txt</button></div>${its.map(cardAnot).join('')}</details>`; }).join('') : '<div class="note">Quando você começar um novo estudo, as respostas atuais ficam guardadas aqui.</div>'}</div>`;
+    <h3 class="fh" style="margin-top:20px">Rodadas anteriores deste estudo</h3>${hist.length ? hist.map(k => { const its = listaHist(k); return `<details class="grp"><summary><b>${esc(HIST[k].titulo || 'Estudo')}</b> · ${new Date(+k).toLocaleString('pt-BR')} · ${its.length} resposta(s)</summary><div class="row"><button class="btn sm" data-cp="${k}"><i class="ti ti-copy"></i> Copiar tudo</button><button class="btn sm" data-dl="${k}"><i class="ti ti-file-download"></i> Baixar .txt</button></div>${its.map(cardAnot).join('')}</details>`; }).join('') : '<div class="note">Quando você recomeçar este estudo, as respostas atuais ficam guardadas aqui.</div>'}</div>`;
   }
   const textoDe = k => k === 'cur' ? textoLista(C.meta.titulo + ' · ' + C.meta.subtitulo, Date.now(), listaAtual()) : textoLista(HIST[k]?.titulo || 'Estudo', +k, listaHist(k));
+
+  /* ---- aba Estudos ---- */
+  function renderEstudos() {
+    if (tab !== 'estudos') return;
+    const ids = Object.keys(IDX || {}).sort((a, b) => (IDX[b].criado || 0) - (IDX[a].criado || 0));
+    cm.innerHTML = `<div class="an"><div class="anh"><h3 class="fh">Estudos</h3><div class="row"><button class="btn sm pri" data-es="novo"><i class="ti ti-plus"></i> Novo estudo (modelo em branco)</button><button class="btn sm" data-es="dupatual"><i class="ti ti-copy"></i> Duplicar o estudo em uso</button></div></div>
+    <div class="note">Cada estudo é um personagem: tem as próprias telas, perguntas, áudio, vídeo, respostas, anotações e tema. O link não muda: a TV e o celular mostram sempre o estudo em uso. O modelo em branco já vem com a mesma sequência de telas do estudo de Jael, só com os textos vazios.</div>
+    ${ids.map(id => { const e = IDX[id], on = id === ATIVO; return `<div class="ecard ${on ? 'on' : ''}"><div style="min-width:0"><div class="row"><b style="font:500 19px var(--fr)">${esc(e.titulo || '(sem título)')}</b>${on ? '<span class="pill ok"><i class="ti ti-player-play"></i> Em uso</span>' : ''}</div><div class="mu" style="font-size:13px">${esc(e.subtitulo || '')}</div><div class="mu" style="font-size:12px">${e.atualizado ? 'Editado em ' + new Date(e.atualizado).toLocaleString('pt-BR') : ''}</div></div>
+      <div class="row">${on ? `<button class="btn sm" data-tab-go="editar"><i class="ti ti-edit"></i> Editar</button>` : `<button class="btn sm pri" data-es="usar" data-id="${id}"><i class="ti ti-player-play"></i> Usar este estudo</button>`}<button class="btn sm" data-es="dup" data-id="${id}"><i class="ti ti-copy"></i> Duplicar</button>${on ? '' : `<button class="btn sm" data-es="del" data-id="${id}"><i class="ti ti-trash"></i> Excluir</button>`}</div></div>`; }).join('') || '<div class="note">Carregando…</div>'}</div>`;
+  }
+  async function usarEstudo(id) { if (id === ATIVO) return; await salvarAgora(); await DB.set(P('ativo'), id); await DB.set(P('estado'), { idx: 0, sub: 0, midia: { acao: 'pause', n: Date.now() } }); toast('Estudo trocado'); }
+  async function criaEstudo(c, msg) {
+    const eid = 'e' + uid(); await DB.set(P('estudos/' + eid + '/conteudo'), c);
+    await DB.set(P('indice/' + eid), { titulo: c.meta.titulo || '', subtitulo: c.meta.subtitulo || '', criado: Date.now(), atualizado: Date.now() });
+    if (confirm(msg + '\n\nComeçar a usar e editar este estudo agora? A TV e o celular passam a mostrar ele.')) { await usarEstudo(eid); edSel = 'meta'; setTab('editar'); } else renderEstudos();
+  }
 
   /* ---- aba Configurar ---- */
   function renderConfig() {
     if (tab !== 'config') return;
-    cm.innerHTML = `<div class="an"><h3 class="fh">Configurar</h3><div class="grp"><h4><i class="ti ti-link"></i> Links</h4>${linkRow('Controle', urlModo('controle'))}${linkRow('TV (apresentação)', urlModo('tv'))}${linkRow('Celular (participante)', urlModo('celular'))}<div class="row" style="align-items:flex-start;gap:16px;flex-wrap:nowrap"><div class="qr qrc" data-qr="${esc(urlModo('celular'))}"></div><div class="note">QR code do celular. Ele também aparece na tela de abertura da TV.</div></div></div>
-    <div class="grp"><h4><i class="ti ti-door"></i> Sala</h4><div class="row"><input id="novaSala" class="tin2" value="${esc(SALA)}" style="text-transform:uppercase;width:170px"><button class="btn sm" data-ed="sala">Trocar de sala</button></div><div class="note">Cada sala tem conteúdo, respostas e anotações próprios. Use outra sala para outro estudo.</div></div>
+    const tAtual = temaDe(C).id;
+    const qx = { tipo: 'mc', texto: 'Qual destas opções mostra melhor o tema?', opcoes: ['Primeira opção', 'Segunda opção', 'Terceira opção'], certa: 0, img: IMG_EXEMPLO };
+    const cx = { meta: C.meta, perguntas: { qx }, telas: [{ id: 'tx', tipo: 'pergunta', pid: 'qx', fase: 'antes' }] };
+    const amostra = stageHTML(cx.telas[0], { C: cx, E: { idx: 0, sub: 0 }, R: { qx: { antes: 1 } }, A: {}, D: {}, PART: null, pos: null, idx: 0, preview: true });
+    const lyTxt = tm => ({ esq: 'imagem à esquerda', dir: 'imagem à direita', topo: 'imagem no topo' })[tm.lay.img] + (tm.lay.alin === 'centro' ? ' · centralizado' : '') + ' · ' + ({ r: 'arredondado', m: 'cantos médios', q: 'cantos retos' })[tm.lay.raio] + (tm.lay.bg ? ' · fundo com ' + tm.lay.bg : '');
+    cm.innerHTML = `<div class="an"><h3 class="fh">Configurar</h3>
+    <div class="grp"><h4><i class="ti ti-palette"></i> Cores e layout · ${esc(C.meta.titulo)}</h4><div class="note">O tema vale para o estudo em uso: TV, celular e prévia mudam na hora. Cada estudo pode ter o seu.</div>
+    <div class="tgrid">${TEMAS.map((tm, i) => `<button class="tcard ${tm.id === tAtual ? 'on' : ''}" data-tema="${tm.id}"><div class="tmini" data-tm="${tm.id}"><div class="stage">${amostra}</div></div><div class="row" style="justify-content:space-between;flex-wrap:nowrap"><b style="font-size:14px">${i + 1}. ${esc(tm.nome)}</b>${tm.id === tAtual ? '<span class="pill ok">Em uso</span>' : ''}</div><span style="font-size:12px;color:#8B7363">${esc(tm.fr)} · ${esc(lyTxt(tm))}</span></button>`).join('')}</div></div>
+    <div class="grp"><h4><i class="ti ti-link"></i> Links</h4>${linkRow('Controle', urlModo('controle'))}${linkRow('TV (apresentação)', urlModo('tv'))}${linkRow('Celular (participante)', urlModo('celular'))}<div class="row" style="align-items:flex-start;gap:16px;flex-wrap:nowrap"><div class="qr qrc" data-qr="${esc(urlModo('celular'))}"></div><div class="note">QR code do celular. Ele também aparece na tela de abertura da TV.</div></div></div>
+    <div class="grp"><h4><i class="ti ti-door"></i> Sala</h4><div class="row"><input id="novaSala" class="tin2" value="${esc(SALA)}" style="text-transform:uppercase;width:170px"><button class="btn sm" data-ed="sala">Trocar de sala</button></div><div class="note">Cada sala tem os próprios estudos. Para estudar outro personagem no mesmo link, use a aba Estudos.</div></div>
     <div class="grp"><h4><i class="ti ti-cloud"></i> Sincronização</h4>${DB.remoto ? '<div class="note"><i class="ti ti-circle-check" style="color:var(--ok)"></i> Conectado ao Firebase. Controle, TV e celular podem estar em aparelhos diferentes.</div>' : '<div class="note"><i class="ti ti-alert-triangle"></i> Modo de teste local: a sincronização só funciona entre abas deste navegador. Para usar em aparelhos diferentes, abra o HTML num editor e cole o config do seu projeto Firebase (Realtime Database) na linha <code>const FIREBASE_CONFIG = null;</code>.</div>'}</div></div>`;
+    cm.querySelectorAll('.tmini').forEach(m => { const st = m.firstElementChild, tm = TEMAS.find(x => x.id === m.dataset.tm); varsTema(st, tm); st.className = classeStage(tm); st.style.transform = `scale(${m.clientWidth / 1600})`; });
     postStage(cm);
   }
 
@@ -866,21 +999,30 @@ function modoCtl() {
   cm.addEventListener('click', async e => {
     const me = e.target.closest('.mapedit');
     if (me && !e.target.closest('button')) { const q = C.perguntas[me.dataset.pid], im = me.querySelector('img,.noimg'); if (!q || !im || !q.pinos[selPin]) return; const r = im.getBoundingClientRect(); q.pinos[selPin].x = Math.round(Math.max(0, Math.min(100, (e.clientX - r.left) / r.width * 100)) * 10) / 10; q.pinos[selPin].y = Math.round(Math.max(0, Math.min(100, (e.clientY - r.top) / r.height * 100)) * 10) / 10; touch(); renderEditar(); return; }
-    const b = e.target.closest('[data-go],[data-act],[data-par],[data-sub],[data-live],[data-copy],[data-ed],[data-list],[data-mark],[data-from],[data-del-img],[data-cp],[data-dl],[data-pinsel]'); if (!b) return;
+    const b = e.target.closest('[data-go],[data-act],[data-par],[data-sub],[data-live],[data-copy],[data-ed],[data-list],[data-mark],[data-from],[data-del-img],[data-cp],[data-dl],[data-pinsel],[data-tema],[data-es],[data-tab-go]'); if (!b) return;
     const d = b.dataset, t = cur();
+    if (d.tabGo) return setTab(d.tabGo);
+    if (d.tema) { C.meta.tema = d.tema; touch(); renderConfig(); return; }
+    if (d.es) {
+      if (d.es === 'novo') return criaEstudo(norm(modelo()), 'Novo estudo criado com o modelo em branco.');
+      if (d.es === 'dupatual') { await salvarAgora(); const c = clone(C); c.meta.titulo = (c.meta.titulo || 'Estudo') + ' (cópia)'; return criaEstudo(c, 'Cópia de "' + C.meta.titulo + '" criada.'); }
+      if (d.es === 'dup') { if (d.id === ATIVO) await salvarAgora(); const c = norm(await DB.get(P('estudos/' + d.id + '/conteudo'))); c.meta.titulo = (c.meta.titulo || 'Estudo') + ' (cópia)'; return criaEstudo(c, 'Cópia criada.'); }
+      if (d.es === 'usar') return usarEstudo(d.id);
+      if (d.es === 'del') { const e2 = IDX[d.id] || {}; if (!confirm('Excluir o estudo "' + (e2.titulo || '') + '"? Telas, respostas e anotações dele serão apagadas. Não dá para desfazer.')) return; await DB.set(P('estudos/' + d.id), null); await DB.set(P('indice/' + d.id), null); toast('Estudo excluído'); return; }
+    }
     if (d.go != null) return go(+d.go);
     if (d.act) {
       if (d.act === 'next') return next(); if (d.act === 'prev') return prev();
       if (d.act === 'play' || d.act === 'pause') return midia(d.act);
       if (d.act === 'rel') return midia('rel', { t: +d.t });
-      if (d.act === 'limpar' && t?.tipo === 'pergunta') return DB.set(P(`respostas/${t.pid}/${t.fase === 'depois' ? 'depois' : 'antes'}`), null);
+      if (d.act === 'limpar' && t?.tipo === 'pergunta') return DB.set(PE(`respostas/${t.pid}/${t.fase === 'depois' ? 'depois' : 'antes'}`), null);
     }
     if (d.par != null && t?.tipo === 'leitura') { const k = +d.par; if (temMarcas(t) && typeof t.paragrafos[k].inicio === 'number') return midia('seek', { t: t.paragrafos[k].inicio, play: true }); return DB.update(P('estado'), { sub: k }); }
     if (d.sub != null) return DB.update(P('estado'), { sub: +d.sub });
     if (d.live != null) return DB.update(P('estado'), { live: d.live === '1' });
     if (d.copy != null) return copiarAvisando(d.copy);
     if (d.cp) return copiarAvisando(textoDe(d.cp));
-    if (d.dl) return baixar('jael-anotacoes-' + new Date(d.dl === 'cur' ? Date.now() : +d.dl).toISOString().slice(0, 10) + '.txt', textoDe(d.dl));
+    if (d.dl) return baixar(slug(C.meta.titulo) + '-anotacoes-' + new Date(d.dl === 'cur' ? Date.now() : +d.dl).toISOString().slice(0, 10) + '.txt', textoDe(d.dl));
     if (d.pinsel != null) { selPin = +d.pinsel; return renderEditar(); }
     if (d.list) return listOp(d.list, d.op, +d.i, d.tpl);
     if (d.mark) { const au = $('#edaud'); if (!au) return toast('Sem áudio para marcar'); const v = Math.round(au.currentTime * 10) / 10; setP(d.mark, v); touch(); const inp = cm.querySelector(`[data-b="${d.mark}"]`); if (inp) inp.value = fmt(v); toast('Marcado em ' + fmt(v)); refreshList(); return; }
@@ -898,13 +1040,13 @@ function modoCtl() {
         case 'ver': return go(i);
         case 'newq': { const pid = 'p' + uid(); C.perguntas[pid] = novaPergunta(d.k); if (d.i != null && C.telas[i]) C.telas[i].pid = pid; else bancoAberto = pid; touch(); return renderEditar(); }
         case 'delq': if (!confirm('Excluir esta pergunta?')) return; delete C.perguntas[d.k]; touch(); return renderEditar();
-        case 'export': return baixar('jael-conteudo-' + new Date().toISOString().slice(0, 10) + '.json', JSON.stringify(C, null, 1));
-        case 'reset': if (!confirm('Restaurar o conteúdo padrão? Tudo o que você editou será substituído. Exporte antes se quiser guardar.')) return; C = norm(DEF()); edSel = 0; touch(); return renderEditar();
+        case 'export': return baixar(slug(C.meta.titulo) + '-conteudo-' + new Date().toISOString().slice(0, 10) + '.json', JSON.stringify(C, null, 1));
+        case 'reset': if (!confirm('Substituir este estudo pelo modelo em branco? Tudo o que você editou nele será apagado. Exporte antes se quiser guardar.')) return; { const tema = C.meta.tema; C = norm(modelo()); C.meta.tema = tema; } edSel = 0; touch(); return renderEditar();
         case 'novo': {
-          if (!confirm('Começar um novo estudo? As respostas atuais vão para "Estudos anteriores" e as perguntas voltam a ficar em branco.')) return;
-          const k = Date.now(); await DB.set(P('historico/' + k), { titulo: C.meta.titulo + ' · ' + C.meta.subtitulo, anotacoes: A || {}, respostas: R || {} });
-          await DB.set(P('respostas'), null); await DB.set(P('anotacoes'), null); await DB.set(P('digitando'), null);
-          await DB.set(P('estado'), { idx: 0, sub: 0, estudoId: k, midia: { acao: 'pause', n: Date.now() } }); toast('Novo estudo começado'); return;
+          if (!confirm('Recomeçar este estudo? As respostas atuais vão para "Rodadas anteriores" e as perguntas voltam a ficar em branco. As telas e textos não mudam.')) return;
+          const k = Date.now(); await DB.set(PE('historico/' + k), { titulo: C.meta.titulo + ' · ' + C.meta.subtitulo, anotacoes: A || {}, respostas: R || {} });
+          await DB.set(PE('respostas'), null); await DB.set(PE('anotacoes'), null); await DB.set(PE('digitando'), null);
+          await DB.set(P('estado'), { idx: 0, sub: 0, estudoId: k, midia: { acao: 'pause', n: Date.now() } }); toast('Estudo recomeçado'); return;
         }
         case 'sala': { const v = ($('#novaSala').value || '').toUpperCase().replace(/[^A-Z0-9]/g, ''); if (!v) return toast('Digite um código'); location.href = urlBase() + '?modo=controle&sala=' + v; return; }
       }
@@ -923,19 +1065,41 @@ function modoCtl() {
   cm.addEventListener('drop', e => { const r = e.target.closest && e.target.closest('.edrow'); if (!r || dragI == null) return; e.preventDefault(); const f = dragI; dragI = null; moveTela(f, +r.dataset.row); });
   cm.addEventListener('dragend', () => { dragI = null; cm.querySelectorAll('.edrow.drop').forEach(x => x.classList.remove('drop')); });
 
-  DB.get(P('conteudo')).then(v => {
-    if (!v) { let bk = null; try { bk = JSON.parse(localStorage.getItem('jael-backup-' + SALA)); } catch (e) {} C = norm(bk || DEF()); DB.set(P('conteudo'), C); } else C = norm(v);
-    DB.on(P('estado'), v2 => { E = Object.assign({ idx: 0, sub: 0 }, v2 || {}); renderEstudo(); });
-    DB.on(P('respostas'), v2 => { R = v2 || {}; renderEstudo(); });
-    DB.on(P('anotacoes'), v2 => { A = v2 || {}; renderEstudo(); renderAnot(); });
-    DB.on(P('digitando'), v2 => { D = v2 || {}; if (cur()?.tipo === 'medite') renderEstudo(); });
-    DB.on(P('participante'), v2 => { const mudou = (v2 && v2.nome) !== (PART && PART.nome); PART = v2; pres(); if (mudou && cur()?.tipo === 'abertura') renderEstudo(); });
-    DB.on(P('midiaPos'), v2 => { POS = v2; onPos(); });
-    DB.on(P('historico'), v2 => { HIST = v2 || {}; renderAnot(); });
-    setInterval(pres, 5000); pres();
-    setTab('estudo');
-    if (document.fonts) document.fonts.ready.then(() => { if (tab === 'estudo') desenhaPrev(); });
-  });
+  (async () => {
+    // migração: o conteúdo antigo (um estudo só) vira o primeiro estudo da lista; os dados antigos ficam guardados
+    if (!(await DB.get(P('ativo')))) {
+      let bk = null; try { bk = JSON.parse(localStorage.getItem('jael-backup-' + SALA)); } catch (e) {}
+      const c = norm((await DB.get(P('conteudo'))) || bk || DEF()); if (!c.meta.tema) c.meta.tema = 'areia';
+      const eid = 'e' + uid(), est = { conteudo: c };
+      for (const k of ['respostas', 'anotacoes', 'historico']) { const v = await DB.get(P(k)); if (v) est[k] = v; }
+      await DB.set(P('estudos/' + eid), est);
+      await DB.set(P('indice/' + eid), { titulo: c.meta.titulo || '', subtitulo: c.meta.subtitulo || '', criado: Date.now(), atualizado: Date.now() });
+      await DB.set(P('ativo'), eid);
+    }
+    let primeiro = true;
+    ligaEstudo(async eid => {
+      const c = await DB.get(PE('conteudo')); if (eid !== ATIVO) return;
+      C = norm(c || modelo()); edSel = typeof edSel === 'number' ? 0 : edSel; bancoAberto = null; selPin = 0; R = {}; A = {}; D = {}; HIST = {};
+      if (unsubE) unsubE();
+      unsubE = multiOn([
+        [PE('respostas'), v2 => { R = v2 || {}; renderEstudo(); }],
+        [PE('anotacoes'), v2 => { A = v2 || {}; renderEstudo(); renderAnot(); }],
+        [PE('digitando'), v2 => { D = v2 || {}; if (cur()?.tipo === 'medite') renderEstudo(); }],
+        [PE('historico'), v2 => { HIST = v2 || {}; renderAnot(); }]
+      ]);
+      atualizaTitulo();
+      if (primeiro) {
+        primeiro = false;
+        DB.on(P('estado'), v2 => { E = Object.assign({ idx: 0, sub: 0 }, v2 || {}); renderEstudo(); });
+        DB.on(P('participante'), v2 => { const mudou = (v2 && v2.nome) !== (PART && PART.nome); PART = v2; pres(); if (mudou && cur()?.tipo === 'abertura') renderEstudo(); });
+        DB.on(P('midiaPos'), v2 => { POS = v2; onPos(); });
+        DB.on(P('indice'), v2 => { IDX = v2 || {}; renderEstudos(); });
+        setInterval(pres, 5000); pres();
+        setTab('estudo');
+        if (document.fonts) document.fonts.ready.then(() => { if (tab === 'estudo') desenhaPrev(); });
+      } else setTab(tab);
+    });
+  })();
 }
 
 /* =====================================================================
@@ -943,7 +1107,8 @@ function modoCtl() {
    ===================================================================== */
 function entrada() {
   document.body.className = 'm-land';
-  app.innerHTML = `<div class="land"><div class="t1">Jael</div><div class="t2">A mais abençoada das mulheres</div><div class="lgrid"><a class="lcard" href="${urlModo('controle')}"><i class="ti ti-adjustments"></i><b>Controle</b><span>Quem conduz o estudo</span></a><a class="lcard" href="${urlModo('tv')}"><i class="ti ti-device-tv"></i><b>TV</b><span>Tela de apresentação</span></a><a class="lcard" href="${urlModo('celular')}"><i class="ti ti-device-mobile"></i><b>Celular</b><span>Quem responde</span></a></div><div class="mu">Sala ${esc(SALA)}${DB.remoto ? '' : ' · modo de teste local (mesmo navegador)'}</div></div>`;
+  app.innerHTML = `<div class="land"><div class="t1" id="lt1">Estudo interativo</div><div class="t2" id="lt2"></div><div class="lgrid"><a class="lcard" href="${urlModo('controle')}"><i class="ti ti-adjustments"></i><b>Controle</b><span>Quem conduz o estudo</span></a><a class="lcard" href="${urlModo('tv')}"><i class="ti ti-device-tv"></i><b>TV</b><span>Tela de apresentação</span></a><a class="lcard" href="${urlModo('celular')}"><i class="ti ti-device-mobile"></i><b>Celular</b><span>Quem responde</span></a></div><div class="mu">Sala ${esc(SALA)}${DB.remoto ? '' : ' · modo de teste local (mesmo navegador)'}</div></div>`;
+  DB.get(P('ativo')).then(a => a ? DB.get(P('indice/' + a)) : null).then(e => { if (e && e.titulo) { $('#lt1').textContent = e.titulo; $('#lt2').textContent = e.subtitulo || ''; document.title = e.titulo; } }).catch(() => {});
 }
 
 if (MODO === 'tv') modoTV();
