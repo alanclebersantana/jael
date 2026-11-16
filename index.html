@@ -288,6 +288,7 @@ const LET = 'ABCDEFGHIJKLMNOP';
 const CORES = ['#B5562F', '#3E6E8E', '#8A5A9B', '#C08A1E', '#4F7F5F', '#B04A6E', '#5C6BC0', '#7A5C3E'];
 function fmt(s) { if (s == null || s === '' || isNaN(s)) return ''; s = Math.max(0, +s); const m = Math.floor(s / 60), r = s - m * 60; return m + ':' + (r < 10 ? '0' : '') + r.toFixed(1); }
 function parseT(v) { v = String(v || '').trim().replace(',', '.'); if (!v) return null; if (v.includes(':')) { const [m, s] = v.split(':'); return (+m || 0) * 60 + (+s || 0); } const n = +v; return isNaN(n) ? null : n; }
+const arqMidia = (s, ext) => { s = String(s || '').trim(); if (!s) return ''; return /\.[a-z0-9]{2,4}$/i.test(s.split('?')[0]) ? s : s + '.' + ext; };
 const urlBase = () => location.origin + location.pathname;
 const urlModo = m => urlBase() + '?modo=' + m + '&sala=' + encodeURIComponent(SALA);
 function bibliaURL(ref) { const m = String(ref || '').match(/^\s*((?:\d\s*)?[^\d:]+?)\s+(\d+)/); if (!m) return 'https://www.jw.org/pt/biblioteca/biblia/'; return 'https://www.jw.org/pt/biblioteca/biblia/biblia-de-estudo/livros/' + encodeURIComponent(m[1].trim()) + '/' + m[2] + '/'; }
@@ -459,7 +460,7 @@ const ST = {
   },
   analise(t) { return withImg(t.img, `<span class="tag"><i class="ti ti-zoom-in"></i>Analise mais a fundo</span><div class="atl">${nl(t.titulo || '')}</div><div class="dv"></div><div class="atx fit">${nl(t.texto || '')}</div>`, 'mid'); },
   video(t, x) {
-    const box = t.arquivo ? (x.preview ? `<div class="vslot"><i class="ti ti-player-play" style="font-size:96px"></i></div>` : `<div class="vslot" id="videoSlot"></div>`)
+    const box = t.arquivo && !x.vErro ? (x.preview ? `<div class="vslot"><i class="ti ti-player-play" style="font-size:96px"></i></div>` : `<div class="vslot" id="videoSlot"></div>`)
       : `<div class="vslot"><div class="center" style="color:var(--bg)"><i class="ti ti-movie" style="font-size:80px"></i><div class="big">Assista pelo link</div>${t.link ? `<div class="qr" data-qr="${esc(t.link)}"></div>` : ''}</div></div>`;
     return `<div class="col"><div class="row2"><span class="tag"><i class="ti ti-movie"></i>Vídeo</span><span class="q" style="font-size:36px">${esc(t.titulo || '')}</span></div>${box}</div>`;
   },
@@ -510,13 +511,13 @@ function modoTV() {
   $('#tvgo').onclick = () => { $('#tvov').style.display = 'none'; try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(() => {}); } catch (e) {} };
   const cur = () => C.telas[Math.min(E.idx || 0, C.telas.length - 1)];
   const midiaEl = t => t && t.tipo === 'video' ? vid : aud;
-  const posLocal = () => { const t = cur(); if (!t) return null; const el = midiaEl(t); return { tela: t.id, t: el.currentTime || 0, tocando: !el.paused, dur: isFinite(el.duration) ? el.duration : 0 }; };
+  const posLocal = () => { const t = cur(); if (!t) return null; const el = midiaEl(t); return { tela: t.id, t: el.currentTime || 0, tocando: !el.paused, dur: isFinite(el.duration) ? el.duration : 0, erro: !!(el.error && el.getAttribute('src')) ? (el.getAttribute('src') || '') : '' }; };
   const setSrc = (el, src) => { if (src && el.getAttribute('src') !== src) { el.setAttribute('src', src); el.load(); } };
   const seekReady = (el, s) => { if (el.readyState >= 1) el.currentTime = s; else el.addEventListener('loadedmetadata', () => { el.currentTime = s; }, { once: true }); };
   function trocaTela(t) {
     aud.pause(); vid.pause(); if (!t) return;
-    if (t.tipo === 'leitura') { const src = t.audio || C.meta.audio; if (src) { setSrc(aud, src); if (temMarcas(t)) seekReady(aud, t.paragrafos[0].inicio); } }
-    if (t.tipo === 'video' && t.arquivo) { setSrc(vid, t.arquivo); seekReady(vid, 0); }
+    if (t.tipo === 'leitura') { const src = arqMidia(t.audio || C.meta.audio, 'mp3'); if (src) { setSrc(aud, src); if (temMarcas(t)) seekReady(aud, t.paragrafos[0].inicio); } }
+    if (t.tipo === 'video' && t.arquivo) { setSrc(vid, arqMidia(t.arquivo, 'mp4')); seekReady(vid, 0); }
     report(true);
   }
   function render() {
@@ -525,11 +526,11 @@ function modoTV() {
     const pos = posLocal();
     lastPar = t && t.tipo === 'leitura' ? parIdx(t, E, pos) : -1;
     if (vid.parentNode !== hold) hold.appendChild(vid);
-    stage.innerHTML = stageHTML(t, { C, E, R, A, D, PART, pos, idx: E.idx, preview: false });
+    stage.innerHTML = stageHTML(t, { C, E, R, A, D, PART, pos, idx: E.idx, preview: false, vErro: t && t.tipo === 'video' && !!(vid.error && vid.getAttribute('src')) });
     postStage(stage);
     const slot = $('#videoSlot'); if (slot) slot.appendChild(vid);
   }
-  function report(force) { const now = Date.now(); if (!force && now - lastRep < 500) return; lastRep = now; const p = posLocal(); if (p) DB.set(P('midiaPos'), { tela: p.tela, t: +p.t.toFixed(2), dur: +(+p.dur).toFixed(1), tocando: p.tocando }); }
+  function report(force) { const now = Date.now(); if (!force && now - lastRep < 500) return; lastRep = now; const p = posLocal(); if (p) DB.set(P('midiaPos'), { tela: p.tela, t: +p.t.toFixed(2), dur: +(+p.dur).toFixed(1), tocando: p.tocando, erro: p.erro || null }); }
   function cmd(m) {
     const t = cur(); if (!t || (t.tipo !== 'leitura' && t.tipo !== 'video')) return;
     const el = midiaEl(t); if (!el.getAttribute('src')) return;
@@ -553,6 +554,9 @@ function modoTV() {
   });
   vid.addEventListener('timeupdate', () => report());
   ['play', 'pause', 'seeked', 'ended'].forEach(ev => { aud.addEventListener(ev, () => { if (cur()?.tipo === 'leitura') render(); report(true); }); vid.addEventListener(ev, () => report(true)); });
+  vid.addEventListener('error', () => { if (cur()?.tipo === 'video') render(); report(true); });
+  aud.addEventListener('error', () => report(true));
+  vid.addEventListener('loadeddata', () => { if (cur()?.tipo === 'video') report(true); });
   DB.on(P('conteudo'), v => { C = norm(v || DEF()); render(); });
   DB.on(P('estado'), v => {
     E = Object.assign({ idx: 0, sub: 0 }, v || {}); render();
@@ -715,11 +719,12 @@ function modoCtl() {
       case 'leitura': {
         const ps = t.paragrafos, mk = temMarcas(t), src = t.audio || C.meta.audio, i = parIdx(t, E, POS), on = POS && POS.tela === t.id && POS.tocando;
         if (mk && src) L.push(`<div class="row" style="flex-wrap:nowrap"><button class="btn pri round" data-act="${on ? 'pause' : 'play'}" aria-label="Tocar ou pausar"><i class="ti ti-player-${on ? 'pause' : 'play'}"></i></button><div style="flex:1"><div class="cbar2"><div id="cprog" style="width:${progLeitura(t, POS) * 100}%"></div></div><div class="mu" id="ctime" style="font-size:12px;margin-top:4px">${POS && POS.tela === t.id ? fmt(POS.t) : fmt(ps[0].inicio)} · termina em ${fmt(t.fim)}</div></div></div>`);
-        else L.push(`<div class="note"><i class="ti ti-info-circle"></i> ${src ? 'Esta leitura ainda não tem as marcas do áudio. Marque em Editar para o áudio tocar na TV e os parágrafos virarem sozinhos. Por enquanto, avance os parágrafos manualmente.' : 'Defina o arquivo de áudio em Editar → Informações gerais.'}</div>`);
+        if (POS && POS.tela === t.id && POS.erro) L.push(`<div class="note" style="color:var(--no);border-color:#E8B4A8"><i class="ti ti-alert-triangle"></i> A TV não encontrou o áudio <code>${esc(POS.erro)}</code>. Confira o nome em Editar e se o arquivo está na mesma pasta do HTML.</div>`);
+        else if (!(mk && src)) L.push(`<div class="note"><i class="ti ti-info-circle"></i> ${src ? 'Esta leitura ainda não tem as marcas do áudio. Marque em Editar para o áudio tocar na TV e os parágrafos virarem sozinhos. Por enquanto, avance os parágrafos manualmente.' : 'Defina o arquivo de áudio em Editar → Informações gerais.'}</div>`);
         L.push(`<div class="mu" style="font-size:13px">${mk ? 'Pular para o parágrafo' : 'Parágrafo na tela'}</div><div class="row">${ps.map((p, k) => `<button class="btn sm ${k === i ? 'on' : ''}" data-par="${k}">§${k + 1}${p.titulo ? ' · ' + esc(p.titulo) : ''}</button>`).join('')}</div>`);
         break;
       }
-      case 'video': { const on = POS && POS.tela === t.id && POS.tocando; if (t.arquivo) L.push(`<div class="row" style="flex-wrap:nowrap"><button class="btn pri round" data-act="${on ? 'pause' : 'play'}" aria-label="Tocar ou pausar"><i class="ti ti-player-${on ? 'pause' : 'play'}"></i></button><button class="btn sm" data-act="rel" data-t="-10">−10 s</button><button class="btn sm" data-act="rel" data-t="10">+10 s</button><div style="flex:1"><div class="cbar2"><div id="cprog" style="width:${POS && POS.tela === t.id && POS.dur ? POS.t / POS.dur * 100 : 0}%"></div></div><div class="mu" id="ctime" style="font-size:12px;margin-top:4px">${POS && POS.tela === t.id ? fmt(POS.t) + ' / ' + fmt(POS.dur) : '0:00'}</div></div></div>`); else L.push('<div class="note">Sem arquivo de vídeo: a TV mostra o QR code do link. Adicione o nome do MP4 em Editar.</div>'); if (t.link) L.push(linkRow('Link do vídeo', t.link)); break; }
+      case 'video': { const on = POS && POS.tela === t.id && POS.tocando; if (t.arquivo && POS && POS.tela === t.id && POS.erro) L.push(`<div class="note" style="color:var(--no);border-color:#E8B4A8"><i class="ti ti-alert-triangle"></i> A TV não encontrou o arquivo <code>${esc(POS.erro)}</code>. Confira em Editar se o nome está igual ao do arquivo (com .mp4) e se ele está na mesma pasta do HTML. Enquanto isso, a TV mostra o QR code do link.</div>`); if (t.arquivo) L.push(`<div class="row" style="flex-wrap:nowrap"><button class="btn pri round" data-act="${on ? 'pause' : 'play'}" aria-label="Tocar ou pausar"><i class="ti ti-player-${on ? 'pause' : 'play'}"></i></button><button class="btn sm" data-act="rel" data-t="-10">−10 s</button><button class="btn sm" data-act="rel" data-t="10">+10 s</button><div style="flex:1"><div class="cbar2"><div id="cprog" style="width:${POS && POS.tela === t.id && POS.dur ? POS.t / POS.dur * 100 : 0}%"></div></div><div class="mu" id="ctime" style="font-size:12px;margin-top:4px">${POS && POS.tela === t.id ? fmt(POS.t) + ' / ' + fmt(POS.dur) : '0:00'}</div></div></div>`); else L.push('<div class="note">Sem arquivo de vídeo: a TV mostra o QR code do link. Adicione o nome do MP4 em Editar.</div>'); if (t.link) L.push(linkRow('Link do vídeo', t.link)); break; }
       case 'medite': { const a = A?.[t.id], d = D?.[t.id], typing = d != null && (!a || d !== a.texto); L.push(`<div class="row"><span class="pill ${a && !typing ? 'ok' : ''}">${a && !typing ? '<i class="ti ti-circle-check"></i> Respondido' : typing ? '<i class="ti ti-pencil"></i> Digitando…' : '<i class="ti ti-clock"></i> Aguardando'}</span></div><div class="mu" style="font-size:13px">Mostrar na TV</div><div class="row"><button class="btn sm ${E.live !== false ? 'on' : ''}" data-live="1">Enquanto digita</button><button class="btn sm ${E.live === false ? 'on' : ''}" data-live="0">Só depois de enviar</button></div><div class="note"><i class="ti ti-notebook"></i> A resposta fica salva em Anotações e no caderno do celular.</div>`); break; }
       case 'comparativo': { const Lp = compList(C), n = Lp.length, s = Math.min(E.sub || 0, n); L.push(`<div class="row">${Lp.map((pid, k) => `<button class="btn sm ${k === s ? 'on' : ''}" data-sub="${k}">P${k + 1}</button>`).join('')}<button class="btn sm ${s === n ? 'on' : ''}" data-sub="${n}">Visão geral</button></div>`); break; }
       default: L.push('<div class="note">Tela só de leitura.</div>');
@@ -739,7 +744,7 @@ function modoCtl() {
   function desenhaPrev() { const pv = $('#prev'), ps = $('#pstage'); if (!pv || !ps) return; const s = pv.clientWidth / 1600; ps.style.transform = `scale(${s})`; pv.style.height = 900 * s + 'px'; ps.innerHTML = stageHTML(cur(), { C, E, R, A, D, PART, pos: POS, idx: E.idx, preview: true }); postStage(ps); }
   function onPos() {
     if (tab !== 'estudo') return; const t = cur(); if (!t || (t.tipo !== 'leitura' && t.tipo !== 'video')) return;
-    const k = (t.tipo === 'leitura' ? parIdx(t, E, POS) : 0) + '|' + !!(POS && POS.tocando) + '|' + (POS && POS.tela);
+    const k = (t.tipo === 'leitura' ? parIdx(t, E, POS) : 0) + '|' + !!(POS && POS.tocando) + '|' + (POS && POS.tela) + '|' + (POS && POS.erro);
     if (k !== lastPK) { lastPK = k; renderEstudo(); return; }
     if (!POS || POS.tela !== t.id) return;
     const pr = t.tipo === 'leitura' ? progLeitura(t, POS) : (POS.dur ? POS.t / POS.dur : 0);
@@ -802,7 +807,7 @@ function modoCtl() {
     leitura(t, p) {
       const src = t.audio || C.meta.audio;
       return `${fTxt('Nome da leitura (só aparece no controle)', p + '.titulo')}${fImg('Imagem padrão (usada quando o parágrafo não tem imagem própria)', p + '.img')}
-      <div class="grp"><h4><i class="ti ti-music"></i> Áudio e marcas</h4>${src ? `<audio id="edaud" controls preload="metadata" src="${esc(src)}" style="width:100%"></audio><div class="note">Toque o áudio e aperte "Marcar agora" quando cada parágrafo começar. No fim, marque o "Fim da leitura". Arquivo: <code>${esc(src)}</code> (precisa estar na mesma pasta do HTML).</div>` : '<div class="note">Defina o arquivo de áudio em Informações gerais.</div>'}${fTxt('Arquivo de áudio só desta leitura (opcional)', p + '.audio', 'vazio = usa o arquivo geral')}</div>
+      <div class="grp"><h4><i class="ti ti-music"></i> Áudio e marcas</h4>${src ? `<audio id="edaud" controls preload="metadata" src="${esc(arqMidia(src, 'mp3'))}" style="width:100%"></audio><div class="note">Toque o áudio e aperte "Marcar agora" quando cada parágrafo começar. No fim, marque o "Fim da leitura". Arquivo: <code>${esc(src)}</code> (precisa estar na mesma pasta do HTML).</div>` : '<div class="note">Defina o arquivo de áudio em Informações gerais.</div>'}${fTxt('Arquivo de áudio só desta leitura (opcional)', p + '.audio', 'vazio = usa o arquivo geral')}</div>
       ${t.paragrafos.map((q, i) => `<div class="grp"><div class="row" style="justify-content:space-between"><h4>Parágrafo ${i + 1}</h4>${listBtns(p + '.paragrafos', i)}</div>${fTime('Início no áudio', `${p}.paragrafos.${i}.inicio`)}${fTxt('Título curto', `${p}.paragrafos.${i}.titulo`)}${fTxt('Referência bíblica', `${p}.paragrafos.${i}.ref`, 'Juízes 4:17')}${fArea('Texto', `${p}.paragrafos.${i}.texto`, 5)}${fImg('Imagem deste parágrafo (opcional)', `${p}.paragrafos.${i}.img`)}</div>`).join('')}
       <div><button class="btn sm" data-list="${p}.paragrafos" data-op="add" data-tpl="para"><i class="ti ti-plus"></i> Adicionar parágrafo</button></div><div class="grp">${fTime('Fim da leitura no áudio', p + '.fim')}</div>`;
     },
